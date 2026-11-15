@@ -1,0 +1,261 @@
+company,position,location,employmentType,salary,sourceUrl,description,synthetic
+"Northstar Labs","Frontend Engineer","Remote · UK","Full-time","£65,000–£80,000","https://example.com/synthetic-jobs/1","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Northstar Labs is a fictional team hiring a Frontend Engineer.
+
+Build accessible interfaces for an analytics product.
+
+Required skills: TypeScript, React.
+Preferred skills: Playwright.
+Minimum 3 years of JavaScript experience required.
+Location: Remote · UK. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: £65,000–£80,000.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Cedar Systems","Full Stack Engineer","Remote · Europe","Full-time","€70,000–€90,000","https://example.com/synthetic-jobs/2","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Cedar Systems is a fictional team hiring a Full Stack Engineer.
+
+Develop APIs and customer-facing workflows.
+
+Required skills: TypeScript, Node.js.
+Preferred skills: PostgreSQL.
+Minimum 3 years of JavaScript experience required.
+Location: Remote · Europe. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: €70,000–€90,000.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Harbor Data","Data Engineer","Berlin, Germany","Full-time","€75,000–€95,000","https://example.com/synthetic-jobs/3","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Harbor Data is a fictional team hiring a Data Engineer.
+
+Build reliable batch ingestion pipelines.
+
+Required skills: Python, SQL.
+Preferred skills: Docker.
+Minimum 3 years of JavaScript experience required.
+Location: Berlin, Germany. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: €75,000–€95,000.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Juniper Studio","UI Engineer","London, UK","Full-time","£60,000–£75,000","https://example.com/synthetic-jobs/4","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Juniper Studio is a fictional team hiring a UI Engineer.
+
+Implement accessible components with the design team.
+
+Required skills: React, Accessibility.
+Preferred skills: Figma.
+Minimum 3 years of JavaScript experience required.
+Location: London, UK. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: £60,000–£75,000.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Atlas Grid","Backend Engineer","Remote · US","Full-time","$115,000–$145,000","https://example.com/synthetic-jobs/5","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Atlas Grid is a fictional team hiring a Backend Engineer.
+
+Improve the reliability of a logistics API.
+
+Required skills: Node.js, PostgreSQL.
+Preferred skills: Redis.
+Minimum 3 years of JavaScript experience required.
+Location: Remote · US. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: $115,000–$145,000.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Willow Health","Software Engineer","Toronto, Canada","Full-time","CA$95,000–CA$120,000","https://example.com/synthetic-jobs/6","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Willow Health is a fictional team hiring a Software Engineer.
+
+Build scheduling tools for a fictional care team.
+
+Required skills: TypeScript, React.
+Preferred skills: Next.js.
+Minimum 3 years of JavaScript experience required.
+Location: Toronto, Canada. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: CA$95,000–CA$120,000.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Orbit Works","Platform Engineer","Amsterdam, Netherlands","Full-time","€80,000–€100,000","https://example.com/synthetic-jobs/7","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Orbit Works is a fictional team hiring a Platform Engineer.
+
+Maintain development infrastructure and improve build times.
+
+Required skills: Docker, Kubernetes.
+Preferred skills: Terraform.
+Minimum 3 years of JavaScript experience required.
+Location: Amsterdam, Netherlands. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: €80,000–€100,000.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Maple Finance","Full Stack Developer","Remote · Canada","Full-time","CA$100,000–CA$125,000","https://example.com/synthetic-jobs/8","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Maple Finance is a fictional team hiring a Full Stack Developer.
+
+Develop reporting interfaces for small businesses.
+
+Required skills: Next.js, SQL.
+Preferred skills: Vitest.
+Minimum 3 years of JavaScript experience required.
+Location: Remote · Canada. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: CA$100,000–CA$125,000.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Pebble Commerce","Frontend Developer","Manchester, UK","Full-time","£50,000–£65,000","https://example.com/synthetic-jobs/9","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Pebble Commerce is a fictional team hiring a Frontend Developer.
+
+Deliver a fast and accessible checkout interface.
+
+Required skills: JavaScript, React.
+Preferred skills: Accessibility.
+Minimum 3 years of JavaScript experience required.
+Location: Manchester, UK. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: £50,000–£65,000.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Bluebird Learning","Product Engineer","Remote · Europe","Full-time","€65,000–€85,000","https://example.com/synthetic-jobs/10","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Bluebird Learning is a fictional team hiring a Product Engineer.
+
+Build course planning and collaboration features.
+
+Required skills: TypeScript, Next.js.
+Preferred skills: Playwright.
+Minimum 3 years of JavaScript experience required.
+Location: Remote · Europe. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: €65,000–€85,000.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Summit Analytics","Python Engineer","Austin, US","Full-time","$105,000–$135,000","https://example.com/synthetic-jobs/11","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Summit Analytics is a fictional team hiring a Python Engineer.
+
+Create internal reporting and data validation tools.
+
+Required skills: Python, PostgreSQL.
+Preferred skills: AWS.
+Minimum 3 years of JavaScript experience required.
+Location: Austin, US. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: $105,000–$135,000.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Elm Digital","QA Automation Engineer","Remote · UK","Full-time","£55,000–£70,000","https://example.com/synthetic-jobs/12","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Elm Digital is a fictional team hiring a QA Automation Engineer.
+
+Develop browser test suites for a web platform.
+
+Required skills: Playwright, TypeScript.
+Preferred skills: Vitest.
+Minimum 3 years of JavaScript experience required.
+Location: Remote · UK. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: £55,000–£70,000.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Copper Cloud","DevOps Engineer","Dublin, Ireland","Full-time","€75,000–€95,000","https://example.com/synthetic-jobs/13","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Copper Cloud is a fictional team hiring a DevOps Engineer.
+
+Improve deployments and service observability.
+
+Required skills: Docker, CI/CD.
+Preferred skills: AWS.
+Minimum 3 years of JavaScript experience required.
+Location: Dublin, Ireland. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: €75,000–€95,000.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Meadow Apps","Junior Web Developer","Lahore, Pakistan","Full-time","PKR 150,000–220,000/month","https://example.com/synthetic-jobs/14","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Meadow Apps is a fictional team hiring a Junior Web Developer.
+
+Implement small web features with mentorship.
+
+Required skills: JavaScript, Git.
+Preferred skills: React.
+Minimum 1 years of JavaScript experience required.
+Location: Lahore, Pakistan. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: PKR 150,000–220,000/month.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Fieldnote Tools","Senior React Engineer","Remote · Europe","Full-time","€85,000–€105,000","https://example.com/synthetic-jobs/15","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Fieldnote Tools is a fictional team hiring a Senior React Engineer.
+
+Lead implementation of reusable editor components.
+
+Required skills: React, TypeScript.
+Preferred skills: GraphQL.
+Minimum 3 years of JavaScript experience required.
+Location: Remote · Europe. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: €85,000–€105,000.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Solaris Mobility","API Engineer","Paris, France","Full-time","€65,000–€85,000","https://example.com/synthetic-jobs/16","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Solaris Mobility is a fictional team hiring a API Engineer.
+
+Design APIs for a fictional transport planning service.
+
+Required skills: Java, SQL.
+Preferred skills: Docker.
+Minimum 3 years of JavaScript experience required.
+Location: Paris, France. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: €65,000–€85,000.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Lighthouse Maps","Geospatial Developer","Remote · US","Full-time","$110,000–$140,000","https://example.com/synthetic-jobs/17","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Lighthouse Maps is a fictional team hiring a Geospatial Developer.
+
+Develop interactive mapping and spatial data tools.
+
+Required skills: Python, JavaScript.
+Preferred skills: PostgreSQL.
+Minimum 3 years of JavaScript experience required.
+Location: Remote · US. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: $110,000–$140,000.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Finch Research","AI Application Engineer","Remote · Global","Full-time","","https://example.com/synthetic-jobs/18","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Finch Research is a fictional team hiring a AI Application Engineer.
+
+Build local evaluation tools with transparent model outputs.
+
+Required skills: Python, TypeScript.
+Preferred skills: SQLite.
+Minimum 3 years of JavaScript experience required.
+Location: Remote · Global. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Salary is not specified.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Acorn Collective","Web Developer","Karachi, Pakistan","Full-time","PKR 180,000–260,000/month","https://example.com/synthetic-jobs/19","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Acorn Collective is a fictional team hiring a Web Developer.
+
+Build content management tools for independent creators.
+
+Required skills: Next.js, TypeScript.
+Preferred skills: SQL.
+Minimum 3 years of JavaScript experience required.
+Location: Karachi, Pakistan. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: PKR 180,000–260,000/month.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
+"Northstar Labs","Senior Frontend Engineer","Remote · UK","Full-time","£80,000–£95,000","https://example.com/synthetic-jobs/20","SYNTHETIC PORTFOLIO FIXTURE — this is not a real vacancy.
+
+Northstar Labs is a fictional team hiring a Senior Frontend Engineer.
+
+Maintain the analytics interface and mentor developers.
+
+Required skills: TypeScript, React.
+Preferred skills: Playwright.
+Minimum 3 years of JavaScript experience required.
+Location: Remote · UK. Candidates must be authorized to work in the stated region.
+Employment: Full-time. Illustrative salary: £80,000–£95,000.
+
+Work with product and design partners, review code and document decisions. No employer contact or application submission is available for this synthetic listing.","true"
