@@ -1,0 +1,25 @@
+{
+  "formatVersion": 1,
+  "status": "FAIL",
+  "transport": "local-http",
+  "recordedAt": "2026-11-15T13:18:59.411Z",
+  "fixtureId": "synthetic-job-001",
+  "fixturePath": "fixtures/jobs.ts#fixtures[0]",
+  "fixtureHash": "787b9c4d85b8201adc40a418ab2c31345beab3501d2a2e13d32c4b467bb65ace",
+  "requestedModel": "qwen3:4b",
+  "model": null,
+  "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+  "ollamaVersion": "0.40.16",
+  "requirementCount": null,
+  "durationMs": 93189,
+  "inferenceAttempted": true,
+  "failureCategory": "evidence_rejected",
+  "checks": {
+    "httpStatus": 200,
+    "responseModel": "qwen3:4b",
+    "done": true,
+    "doneReason": "stop",
+    "schemaValid": true,
+    "evidenceValid": false
+  }
+}

@@ -262,7 +262,10 @@ export default function Tracker() {
   }
   const active = jobs.find((j) => j.id === selected),
     fit = matchProfile(profile, active?.extraction || null);
-  const liveCount = jobs.filter((j) => j.extraction?.provider === 'ollama').length;
+  const liveCount = jobs.filter(
+    (j) =>
+      j.extraction?.provider === 'ollama' || j.extraction?.originalInference?.provider === 'ollama',
+  ).length;
   const followups = jobs.filter(
     (j) => j.followUpDate && j.followUpDate <= today() && !['Offer', 'Rejected'].includes(j.status),
   );
@@ -543,7 +546,7 @@ export default function Tracker() {
                             <Sparkles size={16} />
                           )}{' '}
                           {busy === 'Running local inference'
-                            ? 'Extracting locally… (up to 120s)'
+                            ? 'Extracting locally… (up to 5 min)'
                             : active.extraction
                               ? 'Re-extract with Ollama'
                               : 'Extract with Ollama'}
@@ -578,6 +581,14 @@ export default function Tracker() {
                               : 'Human-entered / corrected · not live AI'}
                             <span>{fmt(active.extraction.at)}</span>
                           </div>
+                          {active.extraction.originalInference && (
+                            <p className="field-help">
+                              Original local Ollama inference retained:{' '}
+                              {active.extraction.originalInference.model} ·{' '}
+                              {fmt(active.extraction.originalInference.at)}. Current requirements
+                              include human corrections.
+                            </p>
+                          )}
                           <div className="requirement-list">
                             {active.extraction.requirements.map((r, i) => (
                               <div className="requirement" key={i}>

@@ -1,0 +1,361 @@
+{
+  "formatVersion": 1,
+  "status": "COMPLETE",
+  "runId": "2026-11-15T13-44-45-800Z",
+  "datasetHash": "13eff02d8222b7b3712b5c0b2b1cdec9712f33d56afa763f2b8fbd7adbe758ad",
+  "gate": {
+    "formatVersion": 1,
+    "status": "PASS",
+    "transport": "local-http",
+    "recordedAt": "2026-11-15T13:42:47.245Z",
+    "fixtureId": "synthetic-job-001",
+    "fixturePath": "fixtures/jobs.ts#fixtures[0]",
+    "fixtureHash": "787b9c4d85b8201adc40a418ab2c31345beab3501d2a2e13d32c4b467bb65ace",
+    "requestedModel": "qwen3:4b",
+    "model": "qwen3:4b",
+    "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+    "ollamaVersion": "0.40.16",
+    "requirementCount": 8,
+    "durationMs": 118554,
+    "inferenceAttempted": true,
+    "failureCategory": null,
+    "checks": {
+      "httpStatus": 200,
+      "responseModel": "qwen3:4b",
+      "done": true,
+      "doneReason": "stop",
+      "schemaValid": true,
+      "evidenceValid": true
+    }
+  },
+  "evaluatedFixtureIds": [
+    "gold-01-explicit-skills",
+    "gold-02-years-and-timezone",
+    "gold-03-no-years",
+    "gold-05-negation",
+    "gold-06-conflict",
+    "gold-07-prompt-injection",
+    "gold-08-constraints"
+  ],
+  "retainedFixtureIds": [
+    "gold-04-ambiguous"
+  ],
+  "summary": {
+    "semanticScoredFixtureCount": 8,
+    "unscoredFixtureCount": 0,
+    "schemaValidResponseRate": {
+      "numerator": 8,
+      "denominator": 8,
+      "rate": 1
+    },
+    "exactEvidenceSupportRate": {
+      "numerator": 27,
+      "denominator": 27,
+      "rate": 1
+    },
+    "precision": {
+      "numerator": 24,
+      "denominator": 27,
+      "rate": 0.8888888888888888
+    },
+    "recall": {
+      "numerator": 24,
+      "denominator": 28,
+      "rate": 0.8571428571428571
+    },
+    "classificationCorrectness": {
+      "numerator": 21,
+      "denominator": 24,
+      "rate": 0.875
+    },
+    "numericExperienceYearCorrectness": {
+      "numerator": 0,
+      "denominator": 1,
+      "rate": 0
+    },
+    "noExperienceCorrectness": {
+      "numerator": 7,
+      "denominator": 7,
+      "rate": 1
+    },
+    "falsePositiveCount": 3,
+    "unsupportedClaimCount": 1,
+    "unexpectedExperienceCount": 0,
+    "strictSchemaFailures": 0,
+    "strictEvidenceFailures": 4,
+    "transportOrCompletionFailures": 0
+  },
+  "fixtures": [
+    {
+      "fixtureId": "gold-01-explicit-skills",
+      "inputHash": "f93736915a333d046569b4c9b53fe28ed3c5599948139b0cbec58cfa87635106",
+      "adapterHash": "75fc95c40ec46761ce235472b8be713bff42fc2e2bab9e2ed8eae77625cd7ae8",
+      "runId": "2026-11-15T13-44-45-800Z",
+      "status": "PASS",
+      "failureCategory": null,
+      "durationMs": 43241,
+      "metrics": {
+        "schemaValid": true,
+        "goldenCount": 4,
+        "candidateCount": 4,
+        "truePositives": 4,
+        "falsePositives": 0,
+        "falseNegatives": 0,
+        "exactSupported": 4,
+        "unsupportedClaims": 0,
+        "priorityCorrect": 4,
+        "priorityCompared": 4,
+        "yearsCorrect": 0,
+        "yearsCompared": 0,
+        "expectedYears": 0,
+        "unexpectedYears": 0,
+        "noExperienceExpected": true,
+        "noExperienceCorrect": true,
+        "matchedIds": [
+          "typescript",
+          "react",
+          "playwright",
+          "dashboards"
+        ],
+        "missingIds": []
+      }
+    },
+    {
+      "fixtureId": "gold-02-years-and-timezone",
+      "inputHash": "e01e9e5982cf05006084468980b721bd194e862a12276d057983d3c50c107a12",
+      "adapterHash": "75fc95c40ec46761ce235472b8be713bff42fc2e2bab9e2ed8eae77625cd7ae8",
+      "runId": "2026-11-15T13-44-45-800Z",
+      "status": "FAIL",
+      "failureCategory": "evidence_rejected",
+      "durationMs": 44404,
+      "metrics": {
+        "schemaValid": true,
+        "goldenCount": 4,
+        "candidateCount": 4,
+        "truePositives": 3,
+        "falsePositives": 1,
+        "falseNegatives": 1,
+        "exactSupported": 4,
+        "unsupportedClaims": 0,
+        "priorityCorrect": 2,
+        "priorityCompared": 3,
+        "yearsCorrect": 0,
+        "yearsCompared": 0,
+        "expectedYears": 1,
+        "unexpectedYears": 0,
+        "noExperienceExpected": false,
+        "noExperienceCorrect": false,
+        "matchedIds": [
+          "postgresql",
+          "pipelines",
+          "timezone"
+        ],
+        "missingIds": [
+          "python-years"
+        ]
+      }
+    },
+    {
+      "fixtureId": "gold-03-no-years",
+      "inputHash": "73bc146be807802a346cffc01da82fb5099a5c46842f5365f9c39bd64653a85d",
+      "adapterHash": "75fc95c40ec46761ce235472b8be713bff42fc2e2bab9e2ed8eae77625cd7ae8",
+      "runId": "2026-11-15T13-44-45-800Z",
+      "status": "PASS",
+      "failureCategory": null,
+      "durationMs": 24166,
+      "metrics": {
+        "schemaValid": true,
+        "goldenCount": 3,
+        "candidateCount": 2,
+        "truePositives": 2,
+        "falsePositives": 0,
+        "falseNegatives": 1,
+        "exactSupported": 2,
+        "unsupportedClaims": 0,
+        "priorityCorrect": 2,
+        "priorityCompared": 2,
+        "yearsCorrect": 0,
+        "yearsCompared": 0,
+        "expectedYears": 0,
+        "unexpectedYears": 0,
+        "noExperienceExpected": true,
+        "noExperienceCorrect": true,
+        "matchedIds": [
+          "java",
+          "docker"
+        ],
+        "missingIds": [
+          "reviews"
+        ]
+      }
+    },
+    {
+      "fixtureId": "gold-04-ambiguous",
+      "inputHash": "87e96b1f63a69aba8e41e2d49384b0d37b9cc9a2b94c3fc3fa6749b01352df5a",
+      "adapterHash": "06103dd320bdd275afab74b882f56ac42c14f5c11370eec8e7ff00082b10f979",
+      "runId": "2026-11-15T13-25-40-604Z",
+      "status": "PASS",
+      "failureCategory": null,
+      "durationMs": 29835,
+      "metrics": {
+        "schemaValid": true,
+        "goldenCount": 3,
+        "candidateCount": 3,
+        "truePositives": 3,
+        "falsePositives": 0,
+        "falseNegatives": 0,
+        "exactSupported": 3,
+        "unsupportedClaims": 0,
+        "priorityCorrect": 3,
+        "priorityCompared": 3,
+        "yearsCorrect": 0,
+        "yearsCompared": 0,
+        "expectedYears": 0,
+        "unexpectedYears": 0,
+        "noExperienceExpected": true,
+        "noExperienceCorrect": true,
+        "matchedIds": [
+          "go",
+          "redis",
+          "documentation"
+        ],
+        "missingIds": []
+      }
+    },
+    {
+      "fixtureId": "gold-05-negation",
+      "inputHash": "9e1f0ae5b8d3817b5b6a42aabd9aecd4499a765fa6e9aac72a22cad2f24ca634",
+      "adapterHash": "75fc95c40ec46761ce235472b8be713bff42fc2e2bab9e2ed8eae77625cd7ae8",
+      "runId": "2026-11-15T13-44-45-800Z",
+      "status": "FAIL",
+      "failureCategory": "evidence_rejected",
+      "durationMs": 47872,
+      "metrics": {
+        "schemaValid": true,
+        "goldenCount": 3,
+        "candidateCount": 4,
+        "truePositives": 3,
+        "falsePositives": 1,
+        "falseNegatives": 0,
+        "exactSupported": 4,
+        "unsupportedClaims": 1,
+        "priorityCorrect": 3,
+        "priorityCompared": 3,
+        "yearsCorrect": 0,
+        "yearsCompared": 0,
+        "expectedYears": 0,
+        "unexpectedYears": 0,
+        "noExperienceExpected": true,
+        "noExperienceCorrect": true,
+        "matchedIds": [
+          "sql",
+          "sqlite",
+          "reporting"
+        ],
+        "missingIds": []
+      }
+    },
+    {
+      "fixtureId": "gold-06-conflict",
+      "inputHash": "2d9c95fccc2759f94cd9aad8f6cb54c8506f2be32753c9265c7666b8403499d3",
+      "adapterHash": "75fc95c40ec46761ce235472b8be713bff42fc2e2bab9e2ed8eae77625cd7ae8",
+      "runId": "2026-11-15T13-44-45-800Z",
+      "status": "FAIL",
+      "failureCategory": "evidence_rejected",
+      "durationMs": 39442,
+      "metrics": {
+        "schemaValid": true,
+        "goldenCount": 4,
+        "candidateCount": 3,
+        "truePositives": 2,
+        "falsePositives": 1,
+        "falseNegatives": 2,
+        "exactSupported": 3,
+        "unsupportedClaims": 0,
+        "priorityCorrect": 1,
+        "priorityCompared": 2,
+        "yearsCorrect": 0,
+        "yearsCompared": 0,
+        "expectedYears": 0,
+        "unexpectedYears": 0,
+        "noExperienceExpected": true,
+        "noExperienceCorrect": true,
+        "matchedIds": [
+          "node",
+          "kubernetes"
+        ],
+        "missingIds": [
+          "docker",
+          "apis"
+        ]
+      }
+    },
+    {
+      "fixtureId": "gold-07-prompt-injection",
+      "inputHash": "4252622b7083afc42f69fca72b5647c88124a8a2d35abdd799eb9ba9b9c169bd",
+      "adapterHash": "75fc95c40ec46761ce235472b8be713bff42fc2e2bab9e2ed8eae77625cd7ae8",
+      "runId": "2026-11-15T13-44-45-800Z",
+      "status": "PASS",
+      "failureCategory": null,
+      "durationMs": 39668,
+      "metrics": {
+        "schemaValid": true,
+        "goldenCount": 3,
+        "candidateCount": 3,
+        "truePositives": 3,
+        "falsePositives": 0,
+        "falseNegatives": 0,
+        "exactSupported": 3,
+        "unsupportedClaims": 0,
+        "priorityCorrect": 3,
+        "priorityCompared": 3,
+        "yearsCorrect": 0,
+        "yearsCompared": 0,
+        "expectedYears": 0,
+        "unexpectedYears": 0,
+        "noExperienceExpected": true,
+        "noExperienceCorrect": true,
+        "matchedIds": [
+          "python",
+          "git",
+          "tooling"
+        ],
+        "missingIds": []
+      }
+    },
+    {
+      "fixtureId": "gold-08-constraints",
+      "inputHash": "03cb1c675a1f32280e10fd2d374fb7f33086cf5fa9871c56e3586fbdd63351ee",
+      "adapterHash": "75fc95c40ec46761ce235472b8be713bff42fc2e2bab9e2ed8eae77625cd7ae8",
+      "runId": "2026-11-15T13-44-45-800Z",
+      "status": "FAIL",
+      "failureCategory": "evidence_rejected",
+      "durationMs": 50790,
+      "metrics": {
+        "schemaValid": true,
+        "goldenCount": 4,
+        "candidateCount": 4,
+        "truePositives": 4,
+        "falsePositives": 0,
+        "falseNegatives": 0,
+        "exactSupported": 4,
+        "unsupportedClaims": 0,
+        "priorityCorrect": 3,
+        "priorityCompared": 4,
+        "yearsCorrect": 0,
+        "yearsCompared": 0,
+        "expectedYears": 0,
+        "unexpectedYears": 0,
+        "noExperienceExpected": true,
+        "noExperienceCorrect": true,
+        "matchedIds": [
+          "authorization",
+          "employment",
+          "location",
+          "documentation"
+        ],
+        "missingIds": []
+      }
+    }
+  ]
+}

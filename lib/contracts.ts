@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { InferenceChecks } from './inference-errors.ts';
 
 const short = z.string().trim().min(1).max(160);
 export const statuses = ['Saved', 'Applied', 'Interview', 'Offer', 'Rejected'] as const;
@@ -50,12 +51,22 @@ export const extractionSchema = z
   .strict();
 export type Requirement = z.infer<typeof requirementSchema>;
 export type Extraction = z.infer<typeof extractionSchema>;
+export type OriginalInference = Extraction & {
+  provider: 'ollama';
+  model: string;
+  at: string;
+  durationMs: number;
+  inputHash: string;
+  verification?: InferenceChecks;
+};
 export type ExtractionRecord = Extraction & {
   provider: 'ollama' | 'human';
   model: string;
   at: string;
   durationMs: number;
   inputHash: string;
+  verification?: InferenceChecks;
+  originalInference?: OriginalInference;
 };
 
 export const skillSchema = z

@@ -15,6 +15,10 @@
     "test:e2e": "playwright test",
     "db:seed": "node --experimental-strip-types scripts/seed.ts",
     "verify:ollama": "node --experimental-strip-types scripts/verify-ollama.ts",
+    "verify": "node --experimental-strip-types scripts/verify-ollama.ts",
+    "evaluate:ollama": "node --experimental-strip-types scripts/evaluate-ollama.ts",
+    "ollama:serve": "node scripts/serve-ollama.mjs",
+    "acceptance:ollama": "node --experimental-strip-types scripts/acceptance-ollama.ts",
     "demo:seed": "node --experimental-strip-types scripts/demo.ts",
     "format": "prettier --write app lib fixtures scripts tests e2e *.ts *.json .github/workflows/ci.yml README.md"
   },

@@ -1,0 +1,76 @@
+[
+  {
+    "fixtureId": "gold-02-years-and-timezone",
+    "diagnosticRepeat": true,
+    "excludedFromAggregateMetrics": true,
+    "failureCategory": "evidence_rejected",
+    "rejectionReason": "numeric_kind",
+    "entries": [
+      {
+        "term": "Python",
+        "kind": "skill",
+        "priority": "required",
+        "minYears": 4,
+        "validationError": "Only experience requirements can specify years"
+      },
+      {
+        "term": "PostgreSQL",
+        "kind": "technology",
+        "priority": "required",
+        "minYears": null,
+        "validationError": null
+      },
+      {
+        "term": "data pipelines",
+        "kind": "responsibility",
+        "priority": "unknown",
+        "minYears": null,
+        "validationError": null
+      },
+      {
+        "term": "UTC+2",
+        "kind": "constraint",
+        "priority": "unknown",
+        "minYears": null,
+        "validationError": null
+      }
+    ]
+  },
+  {
+    "fixtureId": "gold-08-constraints",
+    "diagnosticRepeat": true,
+    "excludedFromAggregateMetrics": true,
+    "failureCategory": "evidence_rejected",
+    "rejectionReason": "required_marker",
+    "entries": [
+      {
+        "term": "authorized to work in Canada",
+        "kind": "constraint",
+        "priority": "required",
+        "minYears": null,
+        "validationError": null
+      },
+      {
+        "term": "Contract",
+        "kind": "constraint",
+        "priority": "required",
+        "minYears": null,
+        "validationError": null
+      },
+      {
+        "term": "Toronto",
+        "kind": "constraint",
+        "priority": "required",
+        "minYears": null,
+        "validationError": null
+      },
+      {
+        "term": "Write API documentation",
+        "kind": "responsibility",
+        "priority": "required",
+        "minYears": null,
+        "validationError": "Required priority needs explicit wording in the source quote; use unknown otherwise"
+      }
+    ]
+  }
+]

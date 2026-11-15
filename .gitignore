@@ -7,3 +7,5 @@ playwright-report/
 test-results/
 *.tsbuildinfo
 artifacts/
+.local-tools/
+.local-models/

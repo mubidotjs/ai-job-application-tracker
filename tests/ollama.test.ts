@@ -17,6 +17,7 @@ const response = (content: unknown) =>
     JSON.stringify({
       model: 'qwen3:4b',
       done: true,
+      done_reason: 'stop',
       message: { content: typeof content === 'string' ? content : JSON.stringify(content) },
     }),
   );
@@ -70,7 +71,7 @@ describe('Ollama adapter — MOCK transport, never live verification', () => {
         fixtures[0].description,
         vi.fn<typeof fetch>().mockRejectedValue(new DOMException('timeout', 'TimeoutError')),
       ),
-    ).rejects.toThrow('120 seconds');
+    ).rejects.toThrow('300 seconds');
     let finish!: (r: Response) => void;
     const pending = inferRequirements(
       fixtures[0].description,

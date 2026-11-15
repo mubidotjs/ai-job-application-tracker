@@ -131,9 +131,24 @@ export function validateExtraction(input: unknown, description: string): Extract
   const extraction = extractionSchema.parse(input);
   const seen = new Set<string>();
   for (const r of extraction.requirements) {
-    if (!contains(description, r.evidence) || !containsTerm(r.evidence, r.term))
+    if (!hasExactEvidence(description, r))
       throw new Error(
         'Unsupported model claim: each requirement needs a verbatim source quote containing the term',
+      );
+    if (isInstructionEvidence(description, r.evidence))
+      throw new Error('Instruction text cannot establish job requirements');
+    const termSentences = description
+      .split(/(?<=[.!?])\s+|\n/)
+      .filter((sentence) => containsTerm(sentence, r.term));
+    const negatedPriority =
+      r.priority === 'required'
+        ? /\bnot (?:required|essential)\b/i
+        : r.priority === 'preferred'
+          ? /\bnot preferred\b/i
+          : null;
+    if (negatedPriority && termSentences.some((sentence) => negatedPriority.test(sentence)))
+      throw new Error(
+        'Negated or conflicting source requirements need human assessment and unknown priority',
       );
     const key = skillKey(r.term);
     if (seen.has(key)) throw new Error('Duplicate model requirements are not accepted');
@@ -164,4 +179,27 @@ export function validateExtraction(input: unknown, description: string): Extract
       throw new Error('Preferred priority needs explicit wording in the source quote');
   }
   return extraction;
+}
+export function isInstructionEvidence(description: string, evidence: string) {
+  const marker =
+    /\b(?:untrusted instruction|ignore (?:all |any |the )?(?:previous|prior|system) instructions?|output approved\s*=|system prompt)\b/i;
+  if (marker.test(evidence)) return true;
+  let index = description.indexOf(evidence);
+  while (index >= 0) {
+    const start = description.lastIndexOf('\n', index) + 1;
+    const end = description.indexOf('\n', index + evidence.length);
+    const line = description.slice(start, end < 0 ? undefined : end);
+    if (!marker.test(line)) return false;
+    index = description.indexOf(evidence, index + 1);
+  }
+  return true;
+}
+export function hasExactEvidence(
+  description: string,
+  requirement: { term: string; evidence: string },
+) {
+  return (
+    description.includes(requirement.evidence) &&
+    containsTerm(requirement.evidence, requirement.term)
+  );
 }

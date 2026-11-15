@@ -227,6 +227,22 @@ export function saveExtraction(id: string, record: ExtractionRecord, expectedUpd
   if (job.updatedAt !== expectedUpdatedAt || hash(job.description) !== record.inputHash)
     throw new Conflict('Job changed during extraction. Run it again on the current description.');
   validateExtraction({ requirements: record.requirements }, job.description);
+  if (record.provider === 'human' && job.extraction) {
+    const previous = job.extraction;
+    const original =
+      previous.provider === 'ollama'
+        ? {
+            provider: 'ollama' as const,
+            model: previous.model,
+            at: previous.at,
+            durationMs: previous.durationMs,
+            inputHash: previous.inputHash,
+            requirements: previous.requirements,
+            verification: previous.verification,
+          }
+        : previous.originalInference;
+    if (original) record = { ...record, originalInference: original };
+  }
   const profile = getProfile(),
     before = matchProfile(profile, job.extraction),
     after = matchProfile(profile, record);
@@ -257,7 +273,9 @@ export function getDrafts(id: string): Draft[] {
   const job = getJob(id),
     current = contextHash(job, getProfile());
   return (
-    db().prepare('SELECT * FROM drafts WHERE job_id=? ORDER BY created_at DESC, rowid DESC').all(id) as Row[]
+    db()
+      .prepare('SELECT * FROM drafts WHERE job_id=? ORDER BY created_at DESC, rowid DESC')
+      .all(id) as Row[]
   ).map((r) => ({
     id: String(r.id),
     jobId: id,

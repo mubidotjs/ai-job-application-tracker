@@ -2,7 +2,7 @@
 
 A local-first workspace for organizing opportunities, inspecting résumé alignment, and tracking applications. Independent portfolio project #4 by [mubidotjs](https://github.com/mubidotjs). No existing project, database or deployment is used.
 
-**Real AI verification: UNVERIFIED in the implementation environment.** Ollama was not installed/reachable. The adapter and failure paths are tested with explicitly mocked transports. Synthetic demo requirements use human/demo rules and are labeled accordingly. Neither mocks nor demo records establish a live AI PASS.
+**Real local AI verification: PASS (November 15, 2026).** Ollama 0.40.16 with `qwen3:4b` (4.0B Q4_K_M) completed the committed synthetic fixture through actual local HTTP, strict Zod and exact source-evidence validation. See [metadata-only proof](docs/verification/real-ai-pass.json) and the [extraction evaluation protocol](docs/extraction-evaluation.md). Synthetic dashboard requirements still use human/demo rules and are labeled accordingly; neither those records nor mock tests establish live AI results.
 
 ![Local synthetic dashboard](docs/demo-dashboard.png)
 
@@ -52,10 +52,10 @@ In a second terminal:
 
 ```sh
 ollama pull qwen3:4b
-npm run verify:ollama
+npm run verify
 ```
 
-If Ollama's desktop service is already running, skip `ollama serve`. The verifier makes one real HTTP request against the first committed synthetic job. A PASS requires a completed `qwen3:4b` response that passes Zod **and source-evidence validation**. It writes `artifacts/ollama-verification.json` (ignored by Git). It never reads your private database. Do not count a failed/unreachable call as PASS. After verification, open a job and select **Extract with Ollama** to persist and display actual inference, source quotes, model, timestamp and input hash.
+Ask for authorization before downloading the model. If Ollama's desktop service is already running, skip `ollama serve`. `npm run verify` (`verify:ollama` remains an alias) first checks the local service version and model inventory, then makes one actual inference request against the first committed synthetic job. It never downloads or substitutes a model. A PASS requires HTTP 200, the exact `qwen3:4b` response identity, `done: true`, `done_reason: stop`, strict Zod output **and exact, case-sensitive source-evidence substrings**. It writes metadata only to `artifacts/ollama-verification.json` (ignored by Git): fixture ID/hash, model/digest, version, requirement count, duration, status, failure category and validation checks. It never reads your private database or saves generated requirements, source text or raw errors in that report. `UNVERIFIED` indicates an unavailable prerequisite or timeout; malformed or rejected responses are `FAIL`, with schema and evidence failures distinguished. Exit code is 0 only for PASS. Do not count a failed/unreachable call as PASS. After verification, open a job and select **Extract with Ollama** to persist and display actual inference, source quotes, model, timestamp and input hash.
 
 Server-only defaults work without an environment file. Optional `.env.local`:
 
@@ -64,7 +64,7 @@ DATABASE_PATH=./data/tracker.sqlite
 OLLAMA_BASE_URL=http://127.0.0.1:11434
 ```
 
-CLI scripts read environment variables from the shell, not `.env.local`. Example separate PowerShell demo database:
+CLI scripts read environment variables from the shell, not `.env.local`. `npm run ollama:serve` is an optional loopback-only launcher with cloud inference disabled; it never downloads models. On the verification machine it uses the authorized installation under ignored `.local-tools/ollama` and stores models in ignored `.local-models` on D:. On other machines it uses Ollama from PATH. No system-wide model-directory setting is changed. Example separate PowerShell demo database:
 
 ```powershell
 $env:DATABASE_PATH = './data/demo.sqlite'
@@ -72,7 +72,7 @@ npm run demo:seed
 npm run dev
 ```
 
-Only HTTP loopback (`127.0.0.1`, `localhost`, `[::1]`) endpoints are allowed. Redirects, credentials, remote hosts and paths are rejected. There is no paid or external fallback. Inference is explicit, job-only, temperature 0, structured JSON, 12,000 input characters, 2,300 generated tokens, 48 KB response, 120 seconds, one in-flight request per server process. The model remains probabilistic: inspect evidence and correct requirements when necessary. Strict literal validation may reject useful paraphrases; fail-closed behavior is intentional.
+Only HTTP loopback (`127.0.0.1`, `localhost`, `[::1]`) endpoints are allowed. Redirects, credentials, remote hosts and paths are rejected. There is no paid or external fallback. Inference is explicit, job-only, temperature 0, structured JSON, 12,000 input characters, 2,300 generated tokens, 48 KB response, 300 seconds, one in-flight request per server process. The duration bound was increased after actual CPU extraction exceeded 120 seconds; no evidence or schema checks were relaxed. The model remains probabilistic: inspect evidence and correct requirements when necessary. Strict literal validation may reject useful paraphrases; fail-closed behavior is intentional.
 
 ## Working features
 
@@ -109,8 +109,19 @@ npm run test:e2e
 
 Vitest covers contracts, unsupported claims, matching arithmetic, CSV injection, duplicates, local endpoint policy, malformed/oversized/timed-out mock responses, persistence across connection restart, transaction rollback, stale writes and draft approval. Playwright exercises the actual UI → API → SQLite flow, CSV and manual creation, profile review, human requirements, fitting, tracking, drafts, duplicate review, delete confirmation, exports, mobile overflow and visible model-boundary failure. `data/e2e.sqlite` is test-only and reset before browser tests. CI uses Node 24 on Ubuntu and never requires Ollama or paid keys. Live inference is a separate owner-run check.
 
+Opt-in actual local inference and evaluation, separate from CI:
+
+```sh
+npm run verify
+npm run evaluate:ollama
+npm run build
+npm run acceptance:ollama
+```
+
+Evaluation runs only after a genuine verifier PASS. `-- --fixtures=<comma-separated IDs>` reruns affected cases while recording retained results. Live browser acceptance requires a complete evaluation with the same dataset, adapter and installed model digest, then makes its own actual job inference. It uses a new `artifacts/acceptance-<runId>.sqlite` containing only synthetic data and never opens the private workspace database. It verifies review/correction, fictional résumé evidence, score contributions, status, draft edit/approval, actual clipboard copying, CSV download and persistence after restart. Reports are metadata-only; the application database and artifacts remain ignored. A workflow PASS does not erase the evaluation's quality failures.
+
 ## Scope and remaining work
 
-The local vertical slice and supporting MVP flows are implemented. Remaining acceptance work: run **actual Qwen3 4B inference** on an owner machine with Ollama and assess extraction quality against additional fixtures. Optional future improvements: richer profile editing instead of JSON, broader skill dictionaries/aliases, database backup UI, desktop notifications, larger-data pagination and calibrated extraction evaluations. Private records are plaintext local data; multi-user hosting would require authentication, encryption/access controls and a different deployment design.
+Actual Qwen3 4B inference and the [complete local browser acceptance workflow](docs/verification/live-acceptance.json) have passed. The [eight-fixture live evaluation](docs/extraction-evaluation.md) is complete and reports remaining semantic failures: final precision 88.9%, recall 85.7%, classification 87.5%, and 4/8 outputs accepted by all application checks. Numeric experience representation, negation, priority handling and missed duties still need improvement; strict rejection remains enabled. JSON editor improvements and a public portfolio demonstration remain deferred. Private records are plaintext local data; multi-user hosting would require authentication, encryption/access controls and a different deployment design.
 
 No deployment or cloud resource is created. A hosted alternative must be a separate **explicit opt-in** and must never transmit résumé text by default. A public synthetic showcase would be labeled as such and must not claim verified live AI. The [hosted feasibility assessment](docs/hosted-assessment.md) reviews Cloudflare Workers AI's free allowance and consent requirements; it is not an enabled provider here.

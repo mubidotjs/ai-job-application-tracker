@@ -33,6 +33,32 @@ const extraction = {
   inputHash: hash(fixtures[0].description),
 };
 describe('SQLite migrations, transactions and lifecycle', () => {
+  it('preserves original inference provenance across human corrections (synthetic unit record, not live proof)', () => {
+    const j = store.addJob(fixtures[0]);
+    store.saveExtraction(
+      j.id,
+      { ...extraction, provider: 'ollama', model: 'qwen3:4b' },
+      j.updatedAt,
+    );
+    const before = store.getJob(j.id).extraction!;
+    store.saveExtraction(
+      j.id,
+      { ...extraction, requirements: [{ ...extraction.requirements[0], priority: 'unknown' }] },
+      store.getJob(j.id).updatedAt,
+    );
+    closeDb();
+    const corrected = store.getJob(j.id).extraction!;
+    expect(corrected.provider).toBe('human');
+    expect(corrected.requirements[0].priority).toBe('unknown');
+    expect(corrected.originalInference).toMatchObject({
+      provider: 'ollama',
+      model: 'qwen3:4b',
+      requirements: before.requirements,
+      inputHash: before.inputHash,
+    });
+    store.saveExtraction(j.id, extraction, store.getJob(j.id).updatedAt);
+    expect(store.getJob(j.id).extraction!.originalInference).toEqual(corrected.originalInference);
+  });
   it('persists after reopening, blocks duplicates and retains near duplicates', () => {
     expect(store.importJobs(fixtures)).toEqual({ imported: 20, duplicates: 0 });
     expect(store.importJobs(fixtures)).toEqual({ imported: 0, duplicates: 20 });
