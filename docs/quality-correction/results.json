@@ -1,0 +1,1218 @@
+{
+  "formatVersion": 1,
+  "status": "COMPLETE",
+  "baselineCommit": "fd1ccf62fd0ed1673a91a76e1759d1ac8105fc7f",
+  "baselinePath": "docs/verification/evaluation-final.json",
+  "baselineReportHash": "a2c8dfd0e4f80aaec7a9b332612f19912b382d8aec73b8888a2a54ddaa818f76",
+  "model": "qwen3:4b",
+  "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+  "ollamaVersion": "0.40.16",
+  "datasetHash": "13eff02d8222b7b3712b5c0b2b1cdec9712f33d56afa763f2b8fbd7adbe758ad",
+  "holdoutHash": "f1e511eb0778e1635b6716a185d09943e2c1fa1e11bdbe21d839964fa90562b1",
+  "scorerHash": "44b03620395d51f6c5bd782ad146aedfd7de1e60acbaed6238dbc6dd4886a60c",
+  "adapterHash": "5af60338f46e8100a370f3def87b0ca170e0c19f0f17b4a6be1633c9bd766da7",
+  "candidateSources": {
+    "lib/contracts.ts": "fbbb97616935cf7de81dd9c4611ecadd029fc8d5535fa0af23a46f345072b6e7",
+    "lib/domain.ts": "b89f4e55620e23ec066cb8e4984a6948d52367919f42f9b757f609add740bb3c",
+    "lib/extraction-prompt.ts": "26d1fba3865796d35e8f54cd8c4d0f9317f2cf6a791b57487018e9aee26603c7",
+    "lib/inference-errors.ts": "caa024df6c3a436336032b9ecfdd77744ad5f43b3fcb444ea9379e98a797b3f2",
+    "lib/normalize.ts": "7bfcafc67beca898f867f4eb6918bdb8e1aa026e67309bb61f385d44eb35053b",
+    "lib/ollama.ts": "2683a9aa16f556c940c4aa86dc01e1465499826f4715e0b837a75eed22b88cd1",
+    "lib/requirement-evidence.ts": "f65ef06b3fe9fe14ba856f99f219208e48afa833408d09b1eea2c3dd1887013f"
+  },
+  "baselineAdapterHash": "99a8c615c79ac92454ebf0c4b96430633e912cf936aec99fc4a483467f96df24",
+  "baselineSources": {
+    "lib/ollama.ts": "75fc95c40ec46761ce235472b8be713bff42fc2e2bab9e2ed8eae77625cd7ae8",
+    "lib/domain.ts": "3b7beff07b9bbf94eb9c5e9525727e04f39cfcdc10de303e95f19bf08c69e600",
+    "lib/contracts.ts": "fca388c6f7119134ccc9e48992bef2f1d29d71bab33cccb6c8212e56f5309a45",
+    "lib/inference-errors.ts": "cfd69d0823a3fd9e8e90bbb9acd8fdaab8e703a57c5284572a98e30f9fa7a7c1",
+    "lib/normalize.ts": "583ff981c23c68341107d2d31d714d1bd5d703024d39c7ba1315ae7abb0b7bb9"
+  },
+  "runId": "2026-11-16T06-23-48-582Z",
+  "callBudget": 13,
+  "callsMade": 13,
+  "original": {
+    "evaluatedFixtureIds": [
+      "gold-02-years-and-timezone",
+      "gold-03-no-years",
+      "gold-05-negation",
+      "gold-06-conflict",
+      "gold-08-constraints"
+    ],
+    "retainedFixtureIds": [
+      "gold-01-explicit-skills",
+      "gold-04-ambiguous",
+      "gold-07-prompt-injection"
+    ],
+    "acceptedFixtureCount": 8,
+    "totalFixtureCount": 8,
+    "summary": {
+      "semanticScoredFixtureCount": 8,
+      "unscoredFixtureCount": 0,
+      "schemaValidResponseRate": {
+        "numerator": 8,
+        "denominator": 8,
+        "rate": 1
+      },
+      "exactEvidenceSupportRate": {
+        "numerator": 28,
+        "denominator": 28,
+        "rate": 1
+      },
+      "precision": {
+        "numerator": 28,
+        "denominator": 28,
+        "rate": 1
+      },
+      "recall": {
+        "numerator": 28,
+        "denominator": 28,
+        "rate": 1
+      },
+      "classificationCorrectness": {
+        "numerator": 28,
+        "denominator": 28,
+        "rate": 1
+      },
+      "numericExperienceYearCorrectness": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1
+      },
+      "noExperienceCorrectness": {
+        "numerator": 7,
+        "denominator": 7,
+        "rate": 1
+      },
+      "falsePositiveCount": 0,
+      "unsupportedClaimCount": 0,
+      "unexpectedExperienceCount": 0,
+      "strictSchemaFailures": 0,
+      "strictEvidenceFailures": 0,
+      "transportOrCompletionFailures": 0
+    },
+    "fixtures": [
+      {
+        "fixtureId": "gold-01-explicit-skills",
+        "inputHash": "f93736915a333d046569b4c9b53fe28ed3c5599948139b0cbec58cfa87635106",
+        "adapterHash": "75fc95c40ec46761ce235472b8be713bff42fc2e2bab9e2ed8eae77625cd7ae8",
+        "runId": "2026-11-15T13-44-45-800Z",
+        "status": "PASS",
+        "failureCategory": null,
+        "durationMs": 43241,
+        "metrics": {
+          "schemaValid": true,
+          "goldenCount": 4,
+          "candidateCount": 4,
+          "truePositives": 4,
+          "falsePositives": 0,
+          "falseNegatives": 0,
+          "exactSupported": 4,
+          "unsupportedClaims": 0,
+          "priorityCorrect": 4,
+          "priorityCompared": 4,
+          "yearsCorrect": 0,
+          "yearsCompared": 0,
+          "expectedYears": 0,
+          "unexpectedYears": 0,
+          "noExperienceExpected": true,
+          "noExperienceCorrect": true,
+          "matchedIds": [
+            "typescript",
+            "react",
+            "playwright",
+            "dashboards"
+          ],
+          "missingIds": []
+        },
+        "model": "qwen3:4b",
+        "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+        "retained": true,
+        "adapterHashScheme": "legacy-single-file-sha256",
+        "adapterFileHash": "75fc95c40ec46761ce235472b8be713bff42fc2e2bab9e2ed8eae77625cd7ae8"
+      },
+      {
+        "fixtureId": "gold-02-years-and-timezone",
+        "status": "PASS",
+        "failureCategory": null,
+        "durationMs": 86201,
+        "inputHash": "e01e9e5982cf05006084468980b721bd194e862a12276d057983d3c50c107a12",
+        "adapterHash": "5af60338f46e8100a370f3def87b0ca170e0c19f0f17b4a6be1633c9bd766da7",
+        "adapterFileHash": "2683a9aa16f556c940c4aa86dc01e1465499826f4715e0b837a75eed22b88cd1",
+        "adapterHashScheme": "sorted-source-bundle-sha256-v1",
+        "runId": "2026-11-16T06-23-48-582Z",
+        "model": "qwen3:4b",
+        "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+        "retained": false,
+        "checks": {
+          "httpStatus": 200,
+          "responseModel": "qwen3:4b",
+          "done": true,
+          "doneReason": "stop",
+          "schemaValid": true,
+          "evidenceValid": true
+        },
+        "metrics": {
+          "schemaValid": true,
+          "goldenCount": 4,
+          "candidateCount": 4,
+          "truePositives": 4,
+          "falsePositives": 0,
+          "falseNegatives": 0,
+          "exactSupported": 4,
+          "unsupportedClaims": 0,
+          "priorityCorrect": 4,
+          "priorityCompared": 4,
+          "yearsCorrect": 1,
+          "yearsCompared": 1,
+          "expectedYears": 1,
+          "unexpectedYears": 0,
+          "noExperienceExpected": false,
+          "noExperienceCorrect": false,
+          "matchedIds": [
+            "python-years",
+            "postgresql",
+            "pipelines",
+            "timezone"
+          ],
+          "missingIds": []
+        },
+        "predictions": [
+          {
+            "term": "Python",
+            "kind": "experience",
+            "priority": "required",
+            "minYears": 4
+          },
+          {
+            "term": "PostgreSQL",
+            "kind": "technology",
+            "priority": "required",
+            "minYears": null
+          },
+          {
+            "term": "Maintain data pipelines",
+            "kind": "responsibility",
+            "priority": "unknown",
+            "minYears": null
+          },
+          {
+            "term": "UTC+2",
+            "kind": "constraint",
+            "priority": "required",
+            "minYears": null
+          }
+        ]
+      },
+      {
+        "fixtureId": "gold-03-no-years",
+        "status": "PASS",
+        "failureCategory": null,
+        "durationMs": 29094,
+        "inputHash": "73bc146be807802a346cffc01da82fb5099a5c46842f5365f9c39bd64653a85d",
+        "adapterHash": "5af60338f46e8100a370f3def87b0ca170e0c19f0f17b4a6be1633c9bd766da7",
+        "adapterFileHash": "2683a9aa16f556c940c4aa86dc01e1465499826f4715e0b837a75eed22b88cd1",
+        "adapterHashScheme": "sorted-source-bundle-sha256-v1",
+        "runId": "2026-11-16T06-23-48-582Z",
+        "model": "qwen3:4b",
+        "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+        "retained": false,
+        "checks": {
+          "httpStatus": 200,
+          "responseModel": "qwen3:4b",
+          "done": true,
+          "doneReason": "stop",
+          "schemaValid": true,
+          "evidenceValid": true
+        },
+        "metrics": {
+          "schemaValid": true,
+          "goldenCount": 3,
+          "candidateCount": 3,
+          "truePositives": 3,
+          "falsePositives": 0,
+          "falseNegatives": 0,
+          "exactSupported": 3,
+          "unsupportedClaims": 0,
+          "priorityCorrect": 3,
+          "priorityCompared": 3,
+          "yearsCorrect": 0,
+          "yearsCompared": 0,
+          "expectedYears": 0,
+          "unexpectedYears": 0,
+          "noExperienceExpected": true,
+          "noExperienceCorrect": true,
+          "matchedIds": [
+            "java",
+            "docker",
+            "reviews"
+          ],
+          "missingIds": []
+        },
+        "predictions": [
+          {
+            "term": "Java",
+            "kind": "skill",
+            "priority": "required",
+            "minYears": null
+          },
+          {
+            "term": "Docker",
+            "kind": "technology",
+            "priority": "preferred",
+            "minYears": null
+          },
+          {
+            "term": "Review pull requests",
+            "kind": "responsibility",
+            "priority": "unknown",
+            "minYears": null
+          }
+        ]
+      },
+      {
+        "fixtureId": "gold-04-ambiguous",
+        "inputHash": "87e96b1f63a69aba8e41e2d49384b0d37b9cc9a2b94c3fc3fa6749b01352df5a",
+        "adapterHash": "06103dd320bdd275afab74b882f56ac42c14f5c11370eec8e7ff00082b10f979",
+        "runId": "2026-11-15T13-25-40-604Z",
+        "status": "PASS",
+        "failureCategory": null,
+        "durationMs": 29835,
+        "metrics": {
+          "schemaValid": true,
+          "goldenCount": 3,
+          "candidateCount": 3,
+          "truePositives": 3,
+          "falsePositives": 0,
+          "falseNegatives": 0,
+          "exactSupported": 3,
+          "unsupportedClaims": 0,
+          "priorityCorrect": 3,
+          "priorityCompared": 3,
+          "yearsCorrect": 0,
+          "yearsCompared": 0,
+          "expectedYears": 0,
+          "unexpectedYears": 0,
+          "noExperienceExpected": true,
+          "noExperienceCorrect": true,
+          "matchedIds": [
+            "go",
+            "redis",
+            "documentation"
+          ],
+          "missingIds": []
+        },
+        "model": "qwen3:4b",
+        "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+        "retained": true,
+        "adapterHashScheme": "legacy-single-file-sha256",
+        "adapterFileHash": "06103dd320bdd275afab74b882f56ac42c14f5c11370eec8e7ff00082b10f979"
+      },
+      {
+        "fixtureId": "gold-05-negation",
+        "status": "PASS",
+        "failureCategory": null,
+        "durationMs": 34146,
+        "inputHash": "9e1f0ae5b8d3817b5b6a42aabd9aecd4499a765fa6e9aac72a22cad2f24ca634",
+        "adapterHash": "5af60338f46e8100a370f3def87b0ca170e0c19f0f17b4a6be1633c9bd766da7",
+        "adapterFileHash": "2683a9aa16f556c940c4aa86dc01e1465499826f4715e0b837a75eed22b88cd1",
+        "adapterHashScheme": "sorted-source-bundle-sha256-v1",
+        "runId": "2026-11-16T06-23-48-582Z",
+        "model": "qwen3:4b",
+        "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+        "retained": false,
+        "checks": {
+          "httpStatus": 200,
+          "responseModel": "qwen3:4b",
+          "done": true,
+          "doneReason": "stop",
+          "schemaValid": true,
+          "evidenceValid": true
+        },
+        "metrics": {
+          "schemaValid": true,
+          "goldenCount": 3,
+          "candidateCount": 3,
+          "truePositives": 3,
+          "falsePositives": 0,
+          "falseNegatives": 0,
+          "exactSupported": 3,
+          "unsupportedClaims": 0,
+          "priorityCorrect": 3,
+          "priorityCompared": 3,
+          "yearsCorrect": 0,
+          "yearsCompared": 0,
+          "expectedYears": 0,
+          "unexpectedYears": 0,
+          "noExperienceExpected": true,
+          "noExperienceCorrect": true,
+          "matchedIds": [
+            "sql",
+            "sqlite",
+            "reporting"
+          ],
+          "missingIds": []
+        },
+        "predictions": [
+          {
+            "term": "SQL",
+            "kind": "skill",
+            "priority": "required",
+            "minYears": null
+          },
+          {
+            "term": "SQLite",
+            "kind": "skill",
+            "priority": "preferred",
+            "minYears": null
+          },
+          {
+            "term": "Build local reporting tools",
+            "kind": "responsibility",
+            "priority": "unknown",
+            "minYears": null
+          }
+        ]
+      },
+      {
+        "fixtureId": "gold-06-conflict",
+        "status": "PASS",
+        "failureCategory": null,
+        "durationMs": 42657,
+        "inputHash": "2d9c95fccc2759f94cd9aad8f6cb54c8506f2be32753c9265c7666b8403499d3",
+        "adapterHash": "5af60338f46e8100a370f3def87b0ca170e0c19f0f17b4a6be1633c9bd766da7",
+        "adapterFileHash": "2683a9aa16f556c940c4aa86dc01e1465499826f4715e0b837a75eed22b88cd1",
+        "adapterHashScheme": "sorted-source-bundle-sha256-v1",
+        "runId": "2026-11-16T06-23-48-582Z",
+        "model": "qwen3:4b",
+        "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+        "retained": false,
+        "checks": {
+          "httpStatus": 200,
+          "responseModel": "qwen3:4b",
+          "done": true,
+          "doneReason": "stop",
+          "schemaValid": true,
+          "evidenceValid": true
+        },
+        "metrics": {
+          "schemaValid": true,
+          "goldenCount": 4,
+          "candidateCount": 4,
+          "truePositives": 4,
+          "falsePositives": 0,
+          "falseNegatives": 0,
+          "exactSupported": 4,
+          "unsupportedClaims": 0,
+          "priorityCorrect": 4,
+          "priorityCompared": 4,
+          "yearsCorrect": 0,
+          "yearsCompared": 0,
+          "expectedYears": 0,
+          "unexpectedYears": 0,
+          "noExperienceExpected": true,
+          "noExperienceCorrect": true,
+          "matchedIds": [
+            "node",
+            "kubernetes",
+            "docker",
+            "apis"
+          ],
+          "missingIds": []
+        },
+        "predictions": [
+          {
+            "term": "Node.js",
+            "kind": "skill",
+            "priority": "required",
+            "minYears": null
+          },
+          {
+            "term": "Kubernetes",
+            "kind": "technology",
+            "priority": "unknown",
+            "minYears": null
+          },
+          {
+            "term": "Docker",
+            "kind": "skill",
+            "priority": "preferred",
+            "minYears": null
+          },
+          {
+            "term": "Support internal APIs",
+            "kind": "responsibility",
+            "priority": "unknown",
+            "minYears": null
+          }
+        ]
+      },
+      {
+        "fixtureId": "gold-07-prompt-injection",
+        "inputHash": "4252622b7083afc42f69fca72b5647c88124a8a2d35abdd799eb9ba9b9c169bd",
+        "adapterHash": "75fc95c40ec46761ce235472b8be713bff42fc2e2bab9e2ed8eae77625cd7ae8",
+        "runId": "2026-11-15T13-44-45-800Z",
+        "status": "PASS",
+        "failureCategory": null,
+        "durationMs": 39668,
+        "metrics": {
+          "schemaValid": true,
+          "goldenCount": 3,
+          "candidateCount": 3,
+          "truePositives": 3,
+          "falsePositives": 0,
+          "falseNegatives": 0,
+          "exactSupported": 3,
+          "unsupportedClaims": 0,
+          "priorityCorrect": 3,
+          "priorityCompared": 3,
+          "yearsCorrect": 0,
+          "yearsCompared": 0,
+          "expectedYears": 0,
+          "unexpectedYears": 0,
+          "noExperienceExpected": true,
+          "noExperienceCorrect": true,
+          "matchedIds": [
+            "python",
+            "git",
+            "tooling"
+          ],
+          "missingIds": []
+        },
+        "model": "qwen3:4b",
+        "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+        "retained": true,
+        "adapterHashScheme": "legacy-single-file-sha256",
+        "adapterFileHash": "75fc95c40ec46761ce235472b8be713bff42fc2e2bab9e2ed8eae77625cd7ae8"
+      },
+      {
+        "fixtureId": "gold-08-constraints",
+        "status": "PASS",
+        "failureCategory": null,
+        "durationMs": 39470,
+        "inputHash": "03cb1c675a1f32280e10fd2d374fb7f33086cf5fa9871c56e3586fbdd63351ee",
+        "adapterHash": "5af60338f46e8100a370f3def87b0ca170e0c19f0f17b4a6be1633c9bd766da7",
+        "adapterFileHash": "2683a9aa16f556c940c4aa86dc01e1465499826f4715e0b837a75eed22b88cd1",
+        "adapterHashScheme": "sorted-source-bundle-sha256-v1",
+        "runId": "2026-11-16T06-23-48-582Z",
+        "model": "qwen3:4b",
+        "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+        "retained": false,
+        "checks": {
+          "httpStatus": 200,
+          "responseModel": "qwen3:4b",
+          "done": true,
+          "doneReason": "stop",
+          "schemaValid": true,
+          "evidenceValid": true
+        },
+        "metrics": {
+          "schemaValid": true,
+          "goldenCount": 4,
+          "candidateCount": 4,
+          "truePositives": 4,
+          "falsePositives": 0,
+          "falseNegatives": 0,
+          "exactSupported": 4,
+          "unsupportedClaims": 0,
+          "priorityCorrect": 4,
+          "priorityCompared": 4,
+          "yearsCorrect": 0,
+          "yearsCompared": 0,
+          "expectedYears": 0,
+          "unexpectedYears": 0,
+          "noExperienceExpected": true,
+          "noExperienceCorrect": true,
+          "matchedIds": [
+            "authorization",
+            "location",
+            "documentation",
+            "employment"
+          ],
+          "missingIds": []
+        },
+        "predictions": [
+          {
+            "term": "Canada",
+            "kind": "constraint",
+            "priority": "required",
+            "minYears": null
+          },
+          {
+            "term": "Toronto",
+            "kind": "constraint",
+            "priority": "required",
+            "minYears": null
+          },
+          {
+            "term": "Write API documentation",
+            "kind": "responsibility",
+            "priority": "unknown",
+            "minYears": null
+          },
+          {
+            "term": "Contract",
+            "kind": "constraint",
+            "priority": "required",
+            "minYears": null
+          }
+        ]
+      }
+    ]
+  },
+  "holdout": {
+    "baseline": {
+      "acceptedFixtureCount": 0,
+      "summary": {
+        "semanticScoredFixtureCount": 4,
+        "unscoredFixtureCount": 0,
+        "schemaValidResponseRate": {
+          "numerator": 4,
+          "denominator": 4,
+          "rate": 1
+        },
+        "exactEvidenceSupportRate": {
+          "numerator": 14,
+          "denominator": 14,
+          "rate": 1
+        },
+        "precision": {
+          "numerator": 11,
+          "denominator": 14,
+          "rate": 0.7857142857142857
+        },
+        "recall": {
+          "numerator": 11,
+          "denominator": 13,
+          "rate": 0.8461538461538461
+        },
+        "classificationCorrectness": {
+          "numerator": 8,
+          "denominator": 11,
+          "rate": 0.7272727272727273
+        },
+        "numericExperienceYearCorrectness": {
+          "numerator": 0,
+          "denominator": 1,
+          "rate": 0
+        },
+        "noExperienceCorrectness": {
+          "numerator": 3,
+          "denominator": 3,
+          "rate": 1
+        },
+        "falsePositiveCount": 3,
+        "unsupportedClaimCount": 1,
+        "unexpectedExperienceCount": 0,
+        "strictSchemaFailures": 0,
+        "strictEvidenceFailures": 4,
+        "transportOrCompletionFailures": 0
+      },
+      "fixtures": [
+        {
+          "fixtureId": "hold-01-numeric-duty",
+          "status": "FAIL",
+          "failureCategory": "evidence_rejected",
+          "durationMs": 49702,
+          "inputHash": "a3b0cec651e33b20d7e2cf8dd93b58190205dcf60dd9248c9936d5cbb0fc5bbe",
+          "adapterHash": "99a8c615c79ac92454ebf0c4b96430633e912cf936aec99fc4a483467f96df24",
+          "adapterFileHash": "75fc95c40ec46761ce235472b8be713bff42fc2e2bab9e2ed8eae77625cd7ae8",
+          "adapterHashScheme": "sorted-source-bundle-sha256-v1",
+          "runId": "2026-11-16T06-23-48-582Z",
+          "model": "qwen3:4b",
+          "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+          "retained": false,
+          "checks": {
+            "httpStatus": 200,
+            "responseModel": "qwen3:4b",
+            "done": true,
+            "doneReason": "stop",
+            "schemaValid": true,
+            "evidenceValid": false,
+            "rejectionReason": "numeric_kind"
+          },
+          "metrics": {
+            "schemaValid": true,
+            "goldenCount": 4,
+            "candidateCount": 4,
+            "truePositives": 3,
+            "falsePositives": 1,
+            "falseNegatives": 1,
+            "exactSupported": 4,
+            "unsupportedClaims": 0,
+            "priorityCorrect": 2,
+            "priorityCompared": 3,
+            "yearsCorrect": 0,
+            "yearsCompared": 0,
+            "expectedYears": 1,
+            "unexpectedYears": 0,
+            "noExperienceExpected": false,
+            "noExperienceCorrect": false,
+            "matchedIds": [
+              "queue",
+              "checklists",
+              "timezone"
+            ],
+            "missingIds": [
+              "experience"
+            ]
+          },
+          "predictions": [
+            {
+              "term": "C#",
+              "kind": "skill",
+              "priority": "required",
+              "minYears": 6
+            },
+            {
+              "term": "RabbitMQ",
+              "kind": "technology",
+              "priority": "preferred",
+              "minYears": null
+            },
+            {
+              "term": "release checklists",
+              "kind": "responsibility",
+              "priority": "unknown",
+              "minYears": null
+            },
+            {
+              "term": "UTC-5",
+              "kind": "constraint",
+              "priority": "unknown",
+              "minYears": null
+            }
+          ]
+        },
+        {
+          "fixtureId": "hold-02-negation-preference",
+          "status": "FAIL",
+          "failureCategory": "evidence_rejected",
+          "durationMs": 26036,
+          "inputHash": "867115d61624bf4f1eba940205ec696e33f5683c31158089ec0ea7bf7d1be5aa",
+          "adapterHash": "99a8c615c79ac92454ebf0c4b96430633e912cf936aec99fc4a483467f96df24",
+          "adapterFileHash": "75fc95c40ec46761ce235472b8be713bff42fc2e2bab9e2ed8eae77625cd7ae8",
+          "adapterHashScheme": "sorted-source-bundle-sha256-v1",
+          "runId": "2026-11-16T06-23-48-582Z",
+          "model": "qwen3:4b",
+          "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+          "retained": false,
+          "checks": {
+            "httpStatus": 200,
+            "responseModel": "qwen3:4b",
+            "done": true,
+            "doneReason": "stop",
+            "schemaValid": true,
+            "evidenceValid": false,
+            "rejectionReason": "contradiction"
+          },
+          "metrics": {
+            "schemaValid": true,
+            "goldenCount": 3,
+            "candidateCount": 3,
+            "truePositives": 2,
+            "falsePositives": 1,
+            "falseNegatives": 1,
+            "exactSupported": 3,
+            "unsupportedClaims": 1,
+            "priorityCorrect": 2,
+            "priorityCompared": 2,
+            "yearsCorrect": 0,
+            "yearsCompared": 0,
+            "expectedYears": 0,
+            "unexpectedYears": 0,
+            "noExperienceExpected": true,
+            "noExperienceCorrect": true,
+            "matchedIds": [
+              "bash",
+              "flask"
+            ],
+            "missingIds": [
+              "review"
+            ]
+          },
+          "predictions": [
+            {
+              "term": "Bash",
+              "kind": "skill",
+              "priority": "required",
+              "minYears": null
+            },
+            {
+              "term": "Azure",
+              "kind": "constraint",
+              "priority": "preferred",
+              "minYears": null
+            },
+            {
+              "term": "Flask",
+              "kind": "skill",
+              "priority": "preferred",
+              "minYears": null
+            }
+          ]
+        },
+        {
+          "fixtureId": "hold-03-conflicting-tool",
+          "status": "FAIL",
+          "failureCategory": "evidence_rejected",
+          "durationMs": 34727,
+          "inputHash": "cf1f63519f6e3c01d5fd2352de03d1582be91a9eab086a7a450b7ac8697e1ed4",
+          "adapterHash": "99a8c615c79ac92454ebf0c4b96430633e912cf936aec99fc4a483467f96df24",
+          "adapterFileHash": "75fc95c40ec46761ce235472b8be713bff42fc2e2bab9e2ed8eae77625cd7ae8",
+          "adapterHashScheme": "sorted-source-bundle-sha256-v1",
+          "runId": "2026-11-16T06-23-48-582Z",
+          "model": "qwen3:4b",
+          "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+          "retained": false,
+          "checks": {
+            "httpStatus": 200,
+            "responseModel": "qwen3:4b",
+            "done": true,
+            "doneReason": "stop",
+            "schemaValid": true,
+            "evidenceValid": false,
+            "rejectionReason": "contradiction"
+          },
+          "metrics": {
+            "schemaValid": true,
+            "goldenCount": 3,
+            "candidateCount": 4,
+            "truePositives": 3,
+            "falsePositives": 1,
+            "falseNegatives": 0,
+            "exactSupported": 4,
+            "unsupportedClaims": 0,
+            "priorityCorrect": 2,
+            "priorityCompared": 3,
+            "yearsCorrect": 0,
+            "yearsCompared": 0,
+            "expectedYears": 0,
+            "unexpectedYears": 0,
+            "noExperienceExpected": true,
+            "noExperienceCorrect": true,
+            "matchedIds": [
+              "conflict",
+              "tool",
+              "procedures"
+            ],
+            "missingIds": []
+          },
+          "predictions": [
+            {
+              "term": "Elixir",
+              "kind": "skill",
+              "priority": "required",
+              "minYears": null
+            },
+            {
+              "term": "Elixir",
+              "kind": "skill",
+              "priority": "required",
+              "minYears": null
+            },
+            {
+              "term": "Podman",
+              "kind": "skill",
+              "priority": "preferred",
+              "minYears": null
+            },
+            {
+              "term": "Document operational procedures",
+              "kind": "responsibility",
+              "priority": "unknown",
+              "minYears": null
+            }
+          ]
+        },
+        {
+          "fixtureId": "hold-04-priority-instructions",
+          "status": "FAIL",
+          "failureCategory": "evidence_rejected",
+          "durationMs": 27141,
+          "inputHash": "c5549fd9316d937ba723cdca5f7992b18746b1d11acaab79175d33f2093f67d7",
+          "adapterHash": "99a8c615c79ac92454ebf0c4b96430633e912cf936aec99fc4a483467f96df24",
+          "adapterFileHash": "75fc95c40ec46761ce235472b8be713bff42fc2e2bab9e2ed8eae77625cd7ae8",
+          "adapterHashScheme": "sorted-source-bundle-sha256-v1",
+          "runId": "2026-11-16T06-23-48-582Z",
+          "model": "qwen3:4b",
+          "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+          "retained": false,
+          "checks": {
+            "httpStatus": 200,
+            "responseModel": "qwen3:4b",
+            "done": true,
+            "doneReason": "stop",
+            "schemaValid": true,
+            "evidenceValid": false,
+            "rejectionReason": "required_marker"
+          },
+          "metrics": {
+            "schemaValid": true,
+            "goldenCount": 3,
+            "candidateCount": 3,
+            "truePositives": 3,
+            "falsePositives": 0,
+            "falseNegatives": 0,
+            "exactSupported": 3,
+            "unsupportedClaims": 0,
+            "priorityCorrect": 2,
+            "priorityCompared": 3,
+            "yearsCorrect": 0,
+            "yearsCompared": 0,
+            "expectedYears": 0,
+            "unexpectedYears": 0,
+            "noExperienceExpected": true,
+            "noExperienceCorrect": true,
+            "matchedIds": [
+              "location",
+              "onboarding",
+              "html"
+            ],
+            "missingIds": []
+          },
+          "predictions": [
+            {
+              "term": "Wellington",
+              "kind": "constraint",
+              "priority": "required",
+              "minYears": null
+            },
+            {
+              "term": "onboarding guides",
+              "kind": "responsibility",
+              "priority": "required",
+              "minYears": null
+            },
+            {
+              "term": "HTML",
+              "kind": "skill",
+              "priority": "preferred",
+              "minYears": null
+            }
+          ]
+        }
+      ]
+    },
+    "candidate": {
+      "acceptedFixtureCount": 4,
+      "summary": {
+        "semanticScoredFixtureCount": 4,
+        "unscoredFixtureCount": 0,
+        "schemaValidResponseRate": {
+          "numerator": 4,
+          "denominator": 4,
+          "rate": 1
+        },
+        "exactEvidenceSupportRate": {
+          "numerator": 12,
+          "denominator": 12,
+          "rate": 1
+        },
+        "precision": {
+          "numerator": 12,
+          "denominator": 12,
+          "rate": 1
+        },
+        "recall": {
+          "numerator": 12,
+          "denominator": 13,
+          "rate": 0.9230769230769231
+        },
+        "classificationCorrectness": {
+          "numerator": 12,
+          "denominator": 12,
+          "rate": 1
+        },
+        "numericExperienceYearCorrectness": {
+          "numerator": 1,
+          "denominator": 1,
+          "rate": 1
+        },
+        "noExperienceCorrectness": {
+          "numerator": 3,
+          "denominator": 3,
+          "rate": 1
+        },
+        "falsePositiveCount": 0,
+        "unsupportedClaimCount": 0,
+        "unexpectedExperienceCount": 0,
+        "strictSchemaFailures": 0,
+        "strictEvidenceFailures": 0,
+        "transportOrCompletionFailures": 0
+      },
+      "fixtures": [
+        {
+          "fixtureId": "hold-01-numeric-duty",
+          "status": "PASS",
+          "failureCategory": null,
+          "durationMs": 43716,
+          "inputHash": "a3b0cec651e33b20d7e2cf8dd93b58190205dcf60dd9248c9936d5cbb0fc5bbe",
+          "adapterHash": "5af60338f46e8100a370f3def87b0ca170e0c19f0f17b4a6be1633c9bd766da7",
+          "adapterFileHash": "2683a9aa16f556c940c4aa86dc01e1465499826f4715e0b837a75eed22b88cd1",
+          "adapterHashScheme": "sorted-source-bundle-sha256-v1",
+          "runId": "2026-11-16T06-23-48-582Z",
+          "model": "qwen3:4b",
+          "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+          "retained": false,
+          "checks": {
+            "httpStatus": 200,
+            "responseModel": "qwen3:4b",
+            "done": true,
+            "doneReason": "stop",
+            "schemaValid": true,
+            "evidenceValid": true
+          },
+          "metrics": {
+            "schemaValid": true,
+            "goldenCount": 4,
+            "candidateCount": 4,
+            "truePositives": 4,
+            "falsePositives": 0,
+            "falseNegatives": 0,
+            "exactSupported": 4,
+            "unsupportedClaims": 0,
+            "priorityCorrect": 4,
+            "priorityCompared": 4,
+            "yearsCorrect": 1,
+            "yearsCompared": 1,
+            "expectedYears": 1,
+            "unexpectedYears": 0,
+            "noExperienceExpected": false,
+            "noExperienceCorrect": false,
+            "matchedIds": [
+              "experience",
+              "queue",
+              "checklists",
+              "timezone"
+            ],
+            "missingIds": []
+          },
+          "predictions": [
+            {
+              "term": "C#",
+              "kind": "experience",
+              "priority": "required",
+              "minYears": 6
+            },
+            {
+              "term": "RabbitMQ",
+              "kind": "technology",
+              "priority": "preferred",
+              "minYears": null
+            },
+            {
+              "term": "Maintain release checklists",
+              "kind": "responsibility",
+              "priority": "unknown",
+              "minYears": null
+            },
+            {
+              "term": "UTC-5",
+              "kind": "constraint",
+              "priority": "required",
+              "minYears": null
+            }
+          ]
+        },
+        {
+          "fixtureId": "hold-02-negation-preference",
+          "status": "PASS",
+          "failureCategory": null,
+          "durationMs": 22815,
+          "inputHash": "867115d61624bf4f1eba940205ec696e33f5683c31158089ec0ea7bf7d1be5aa",
+          "adapterHash": "5af60338f46e8100a370f3def87b0ca170e0c19f0f17b4a6be1633c9bd766da7",
+          "adapterFileHash": "2683a9aa16f556c940c4aa86dc01e1465499826f4715e0b837a75eed22b88cd1",
+          "adapterHashScheme": "sorted-source-bundle-sha256-v1",
+          "runId": "2026-11-16T06-23-48-582Z",
+          "model": "qwen3:4b",
+          "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+          "retained": false,
+          "checks": {
+            "httpStatus": 200,
+            "responseModel": "qwen3:4b",
+            "done": true,
+            "doneReason": "stop",
+            "schemaValid": true,
+            "evidenceValid": true
+          },
+          "metrics": {
+            "schemaValid": true,
+            "goldenCount": 3,
+            "candidateCount": 2,
+            "truePositives": 2,
+            "falsePositives": 0,
+            "falseNegatives": 1,
+            "exactSupported": 2,
+            "unsupportedClaims": 0,
+            "priorityCorrect": 2,
+            "priorityCompared": 2,
+            "yearsCorrect": 0,
+            "yearsCompared": 0,
+            "expectedYears": 0,
+            "unexpectedYears": 0,
+            "noExperienceExpected": true,
+            "noExperienceCorrect": true,
+            "matchedIds": [
+              "bash",
+              "review"
+            ],
+            "missingIds": [
+              "flask"
+            ]
+          },
+          "predictions": [
+            {
+              "term": "Bash",
+              "kind": "skill",
+              "priority": "required",
+              "minYears": null
+            },
+            {
+              "term": "Review test plans",
+              "kind": "responsibility",
+              "priority": "unknown",
+              "minYears": null
+            }
+          ]
+        },
+        {
+          "fixtureId": "hold-03-conflicting-tool",
+          "status": "PASS",
+          "failureCategory": null,
+          "durationMs": 32817,
+          "inputHash": "cf1f63519f6e3c01d5fd2352de03d1582be91a9eab086a7a450b7ac8697e1ed4",
+          "adapterHash": "5af60338f46e8100a370f3def87b0ca170e0c19f0f17b4a6be1633c9bd766da7",
+          "adapterFileHash": "2683a9aa16f556c940c4aa86dc01e1465499826f4715e0b837a75eed22b88cd1",
+          "adapterHashScheme": "sorted-source-bundle-sha256-v1",
+          "runId": "2026-11-16T06-23-48-582Z",
+          "model": "qwen3:4b",
+          "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+          "retained": false,
+          "checks": {
+            "httpStatus": 200,
+            "responseModel": "qwen3:4b",
+            "done": true,
+            "doneReason": "stop",
+            "schemaValid": true,
+            "evidenceValid": true
+          },
+          "metrics": {
+            "schemaValid": true,
+            "goldenCount": 3,
+            "candidateCount": 3,
+            "truePositives": 3,
+            "falsePositives": 0,
+            "falseNegatives": 0,
+            "exactSupported": 3,
+            "unsupportedClaims": 0,
+            "priorityCorrect": 3,
+            "priorityCompared": 3,
+            "yearsCorrect": 0,
+            "yearsCompared": 0,
+            "expectedYears": 0,
+            "unexpectedYears": 0,
+            "noExperienceExpected": true,
+            "noExperienceCorrect": true,
+            "matchedIds": [
+              "conflict",
+              "tool",
+              "procedures"
+            ],
+            "missingIds": []
+          },
+          "predictions": [
+            {
+              "term": "Elixir",
+              "kind": "technology",
+              "priority": "unknown",
+              "minYears": null
+            },
+            {
+              "term": "Podman",
+              "kind": "technology",
+              "priority": "preferred",
+              "minYears": null
+            },
+            {
+              "term": "Document operational procedures",
+              "kind": "responsibility",
+              "priority": "unknown",
+              "minYears": null
+            }
+          ]
+        },
+        {
+          "fixtureId": "hold-04-priority-instructions",
+          "status": "PASS",
+          "failureCategory": null,
+          "durationMs": 31974,
+          "inputHash": "c5549fd9316d937ba723cdca5f7992b18746b1d11acaab79175d33f2093f67d7",
+          "adapterHash": "5af60338f46e8100a370f3def87b0ca170e0c19f0f17b4a6be1633c9bd766da7",
+          "adapterFileHash": "2683a9aa16f556c940c4aa86dc01e1465499826f4715e0b837a75eed22b88cd1",
+          "adapterHashScheme": "sorted-source-bundle-sha256-v1",
+          "runId": "2026-11-16T06-23-48-582Z",
+          "model": "qwen3:4b",
+          "modelDigest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+          "retained": false,
+          "checks": {
+            "httpStatus": 200,
+            "responseModel": "qwen3:4b",
+            "done": true,
+            "doneReason": "stop",
+            "schemaValid": true,
+            "evidenceValid": true
+          },
+          "metrics": {
+            "schemaValid": true,
+            "goldenCount": 3,
+            "candidateCount": 3,
+            "truePositives": 3,
+            "falsePositives": 0,
+            "falseNegatives": 0,
+            "exactSupported": 3,
+            "unsupportedClaims": 0,
+            "priorityCorrect": 3,
+            "priorityCompared": 3,
+            "yearsCorrect": 0,
+            "yearsCompared": 0,
+            "expectedYears": 0,
+            "unexpectedYears": 0,
+            "noExperienceExpected": true,
+            "noExperienceCorrect": true,
+            "matchedIds": [
+              "location",
+              "onboarding",
+              "html"
+            ],
+            "missingIds": []
+          },
+          "predictions": [
+            {
+              "term": "Wellington",
+              "kind": "constraint",
+              "priority": "required",
+              "minYears": null
+            },
+            {
+              "term": "Prepare onboarding guides",
+              "kind": "responsibility",
+              "priority": "unknown",
+              "minYears": null
+            },
+            {
+              "term": "HTML",
+              "kind": "skill",
+              "priority": "preferred",
+              "minYears": null
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "holdoutRegressions": [],
+  "holdoutNoRegression": true,
+  "qualityTargetMet": true,
+  "stopAfterThisBatch": true
+}

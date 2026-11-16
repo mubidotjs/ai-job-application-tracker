@@ -35,6 +35,7 @@ import {
   type Extraction,
 } from '@/lib/contracts';
 import { matchProfile } from '@/lib/matching';
+import { ProfileEditor, RequirementsEditor } from './review-editors';
 
 type View = 'overview' | 'jobs' | 'profile' | 'followups';
 type Activity = { kind: string; detail: string; createdAt: string };
@@ -633,35 +634,29 @@ export default function Tracker() {
                             });
                           }}
                         >
-                          <label>
-                            Requirement contract (JSON)
-                            <textarea
-                              className="code-editor"
-                              rows={14}
+                          <fieldset className="review-form" disabled={!!busy}>
+                            <legend className="sr-only">Review job requirements</legend>
+                            <details className="review-source">
+                              <summary>Job description for evidence review</summary>
+                              <p>{active.description}</p>
+                            </details>
+                            <RequirementsEditor
                               value={requirementsEditor}
-                              onChange={(e) => setRequirementsEditor(e.target.value)}
-                              required
+                              onChange={setRequirementsEditor}
                             />
-                          </label>
-                          <p className="field-help">
-                            Each item: term, kind (skill / technology / experience / responsibility
-                            / constraint), priority (required / preferred / unknown), evidence
-                            (exact quote containing the term), minYears (number for explicit
-                            experience, otherwise null). Required and preferred need explicit source
-                            wording.
-                          </p>
-                          <div className="action-row">
-                            <button disabled={!!busy} className="button primary">
-                              Save human review
-                            </button>
-                            <button
-                              type="button"
-                              className="button secondary"
-                              onClick={() => setRequirementsEditor(null)}
-                            >
-                              Cancel
-                            </button>
-                          </div>
+                            <div className="action-row">
+                              <button disabled={!!busy} className="button primary">
+                                Save human review
+                              </button>
+                              <button
+                                type="button"
+                                className="button secondary"
+                                onClick={() => setRequirementsEditor(null)}
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          </fieldset>
                         </form>
                       )}
                     </div>
@@ -1049,9 +1044,10 @@ export default function Tracker() {
                         <p>Paste plain text. No uploads or external services.</p>
                       </div>
                     </div>
-                    <label>
-                      Your résumé
+                    <div>
+                      <label htmlFor="resume-text">Your résumé</label>
                       <textarea
+                        id="resume-text"
                         rows={17}
                         minLength={30}
                         maxLength={16000}
@@ -1062,7 +1058,7 @@ export default function Tracker() {
                         }}
                         placeholder="Paste your experience, projects and skills…"
                       />
-                    </label>
+                    </div>
                     <div className="action-row">
                       <button
                         className="button primary"
@@ -1116,49 +1112,43 @@ export default function Tracker() {
                       </div>
                       <ShieldCheck size={20} />
                     </div>
-                    <label>
-                      Skills and experience (JSON)
-                      <textarea
-                        className="code-editor"
-                        rows={18}
-                        value={profileEditor}
-                        onChange={(e) => {
-                          setProfileEditor(e.target.value);
-                          setVerified(false);
-                        }}
-                        placeholder={
-                          '{"skills": [{"name": "React", "evidence": "exact résumé quote"}], "experience": []}'
-                        }
-                      />
-                    </label>
-                    <p className="field-help">
-                      Add or remove skills with exact résumé quotes. Experience entries use area,
-                      years, evidence. Years must be stated explicitly in the quote; no inferred
-                      tenure. Labels must appear in their evidence.
-                    </p>
-                    <label className="checkbox-label">
-                      <input
-                        type="checkbox"
-                        checked={verified}
-                        onChange={(e) => setVerified(e.target.checked)}
-                      />
-                      I reviewed the evidence and confirm this profile is accurate.
-                    </label>
-                    <button
-                      className="button primary full"
-                      disabled={!!busy || !profileEditor || !verified}
-                      onClick={() =>
+                    <form
+                      onSubmit={(event) => {
+                        event.preventDefault();
                         run('Saving verified profile', async () => {
                           const reviewed = JSON.parse(profileEditor);
                           await mutate(
                             { action: 'profile-save', profile: { resume, ...reviewed, verified } },
                             'Verified profile saved locally. Fit scores recalculated.',
                           );
-                        })
-                      }
+                        });
+                      }}
                     >
-                      <Check size={16} /> Save verified profile
-                    </button>
+                      <fieldset className="review-form" disabled={!!busy}>
+                        <legend className="sr-only">Review résumé profile</legend>
+                        <ProfileEditor
+                          value={profileEditor}
+                          onChange={(value) => {
+                            setProfileEditor(value);
+                            setVerified(false);
+                          }}
+                        />
+                        <label className="checkbox-label">
+                          <input
+                            type="checkbox"
+                            checked={verified}
+                            onChange={(e) => setVerified(e.target.checked)}
+                          />
+                          I reviewed the evidence and confirm this profile is accurate.
+                        </label>
+                        <button
+                          className="button primary full"
+                          disabled={!!busy || !profileEditor || !verified}
+                        >
+                          <Check size={16} /> Save verified profile
+                        </button>
+                      </fieldset>
+                    </form>
                     {profile && (
                       <button
                         className="text-button danger erase-profile"

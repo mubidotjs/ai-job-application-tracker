@@ -186,7 +186,23 @@ try {
   report.humanReviewAction =
     'Normalized the literal responsibility label; preserved source evidence and original inference';
   await page.getByRole('button', { name: 'Review / enter requirements', exact: true }).click();
-  await page.getByLabel('Requirement contract (JSON)').fill(JSON.stringify(reviewed));
+  // Review through the same labeled controls as a human; this never saves until
+  // the explicit confirmation below. The original Ollama record stays retained.
+  while (await page.getByRole('button', { name: /^Remove requirement \d+$/ }).count())
+    await page
+      .getByRole('button', { name: /^Remove requirement \d+$/ })
+      .last()
+      .click();
+  for (const [index, requirement] of reviewed.requirements.entries()) {
+    await page.getByRole('button', { name: 'Add requirement', exact: true }).click();
+    const row = page.getByRole('group', { name: `Requirement ${index + 1}`, exact: true });
+    await row.getByLabel('Requirement name').fill(requirement.term);
+    await row.getByLabel('Kind', { exact: true }).selectOption(requirement.kind);
+    await row.getByLabel('Priority', { exact: true }).selectOption(requirement.priority);
+    await row.getByLabel('Exact job quote').fill(requirement.evidence);
+    if (requirement.minYears !== null)
+      await row.getByLabel('Minimum years (optional)').fill(String(requirement.minYears));
+  }
   await page.getByRole('button', { name: 'Save human review', exact: true }).click();
   await expect(page.getByText(/Original local Ollama inference retained/)).toBeVisible();
   const corrected = (await details(imported.id)).job.extraction!;
@@ -200,7 +216,7 @@ try {
   await page.getByRole('button', { name: 'My profile', exact: true }).click();
   await page.getByRole('button', { name: 'Use synthetic résumé', exact: true }).click();
   await page.getByRole('button', { name: /Extract skill evidence/ }).click();
-  await expect(page.getByLabel('Skills and experience (JSON)')).toHaveValue(/React/);
+  await expect(page.getByLabel('Skill name', { exact: true }).first()).not.toHaveValue('');
   await page.getByLabel('I reviewed the evidence and confirm this profile is accurate.').check();
   await page.getByRole('button', { name: 'Save verified profile', exact: true }).click();
   await expect(

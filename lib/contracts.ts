@@ -49,6 +49,35 @@ export const requirementSchema = z
 export const extractionSchema = z
   .object({ requirements: z.array(requirementSchema).min(1).max(24) })
   .strict();
+
+// Express the existing domain invariant in the generation grammar as well.
+// The persisted/API shape remains unchanged; invalid claims are never repaired.
+const modelRequirementFields = {
+  term: requirementSchema.shape.term,
+  priority: requirementSchema.shape.priority,
+  evidence: requirementSchema.shape.evidence,
+};
+export const modelRequirementSchema = z.discriminatedUnion('kind', [
+  z
+    .object({
+      kind: z.literal('experience'),
+      ...modelRequirementFields,
+      minYears: requirementSchema.shape.minYears,
+    })
+    .strict(),
+  z
+    .object({
+      kind: z.enum(['skill', 'technology', 'responsibility', 'constraint']),
+      ...modelRequirementFields,
+      minYears: z.null(),
+    })
+    .strict(),
+]);
+export const modelExtractionSchema = z
+  .object({
+    requirements: z.array(modelRequirementSchema).min(1).max(24),
+  })
+  .strict();
 export type Requirement = z.infer<typeof requirementSchema>;
 export type Extraction = z.infer<typeof extractionSchema>;
 export type OriginalInference = Extraction & {

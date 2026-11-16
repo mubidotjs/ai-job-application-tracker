@@ -17,6 +17,7 @@
     "verify:ollama": "node --experimental-strip-types scripts/verify-ollama.ts",
     "verify": "node --experimental-strip-types scripts/verify-ollama.ts",
     "evaluate:ollama": "node --experimental-strip-types scripts/evaluate-ollama.ts",
+    "evaluate:quality": "node --experimental-strip-types scripts/evaluate-quality-correction.ts",
     "ollama:serve": "node scripts/serve-ollama.mjs",
     "acceptance:ollama": "node --experimental-strip-types scripts/acceptance-ollama.ts",
     "demo:seed": "node --experimental-strip-types scripts/demo.ts",

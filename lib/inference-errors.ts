@@ -27,6 +27,7 @@ export type InferenceChecks = {
     | 'quote_or_term'
     | 'instruction'
     | 'contradiction'
+    | 'negated_only'
     | 'duplicate'
     | 'numeric_kind'
     | 'numeric_years'

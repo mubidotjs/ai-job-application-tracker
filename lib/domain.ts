@@ -8,7 +8,8 @@ import {
   type Profile,
   type Extraction,
 } from './contracts.ts';
-import { normalized, skillKey } from './normalize.ts';
+import { normalized, skillKey, containsTerm } from './normalize.ts';
+import { requirementContext } from './requirement-evidence.ts';
 export { normalized, skillKey } from './normalize.ts';
 
 export const hash = (value: string) => createHash('sha256').update(value).digest('hex');
@@ -96,10 +97,6 @@ export function extractProfile(resume: string): Profile {
 const contains = (a: string, b: string) =>
   a.normalize('NFKC').toLowerCase().includes(b.normalize('NFKC').toLowerCase());
 const escaped = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-const containsTerm = (text: string, term: string) =>
-  new RegExp(`(?<![\\p{L}\\p{N}])${escaped(term.normalize('NFKC'))}(?![\\p{L}\\p{N}])`, 'iu').test(
-    text.normalize('NFKC'),
-  );
 const negated = (text: string, term: string) =>
   new RegExp(
     `\\b(?:no|not|without|never)\\b[^.!?\\n]{0,40}${escaped(term)}|${escaped(term)}[^.!?\\n]{0,30}\\b(?:never used|not used|no experience)\\b`,
@@ -137,45 +134,55 @@ export function validateExtraction(input: unknown, description: string): Extract
       );
     if (isInstructionEvidence(description, r.evidence))
       throw new Error('Instruction text cannot establish job requirements');
-    const termSentences = description
-      .split(/(?<=[.!?])\s+|\n/)
-      .filter((sentence) => containsTerm(sentence, r.term));
-    const negatedPriority =
-      r.priority === 'required'
-        ? /\bnot (?:required|essential)\b/i
-        : r.priority === 'preferred'
-          ? /\bnot preferred\b/i
-          : null;
-    if (negatedPriority && termSentences.some((sentence) => negatedPriority.test(sentence)))
+    const source = requirementContext(description, r.term);
+    const quote = requirementContext(r.evidence, r.term);
+    if (source.negatedOnly)
+      throw new Error('Negated-only source mentions are not job requirements');
+    if (source.requiredConflict || source.preferredConflict) {
+      if (
+        r.priority !== 'unknown' ||
+        (source.requiredConflict && !(quote.required && quote.negatedRequired)) ||
+        (source.preferredConflict && !(quote.preferred && quote.negatedPreferred))
+      )
+        throw new Error(
+          'Negated or conflicting requirements need unknown priority and both contradictory source statements',
+        );
+    }
+    if (
+      (r.priority === 'required' && source.negatedRequired) ||
+      (r.priority === 'preferred' && source.negatedPreferred)
+    )
       throw new Error(
         'Negated or conflicting source requirements need human assessment and unknown priority',
       );
     const key = skillKey(r.term);
     if (seen.has(key)) throw new Error('Duplicate model requirements are not accepted');
     seen.add(key);
-    if (
-      r.priority !== 'unknown' &&
-      /\b(?:not required|not essential|not preferred|no experience required)\b/i.test(r.evidence)
-    )
-      throw new Error('Negated requirements need human assessment and unknown priority');
     if (r.kind !== 'experience' && r.minYears !== null)
       throw new Error('Only experience requirements can specify years');
+    const numericExperience = quote.statements.some(
+      (s) => /\bexperience\b/i.test(s) && /\b\d+\+?\s*(?:years?|yrs?)\b/i.test(s),
+    );
+    if (
+      numericExperience &&
+      ['skill', 'technology', 'experience'].includes(r.kind) &&
+      (r.kind !== 'experience' || r.minYears === null)
+    )
+      throw new Error(
+        'Numeric experience requirements must use kind=experience and explicit source years',
+      );
     if (
       r.minYears !== null &&
-      !new RegExp(`\\b${r.minYears}\\+?\\s*(years?|yrs?)\\b`, 'i').test(r.evidence)
+      !quote.statements.some((s) =>
+        new RegExp(`\\b${r.minYears}\\+?\\s*(years?|yrs?)\\b`, 'i').test(s),
+      )
     )
       throw new Error('Experience years are unsupported by the source quote');
-    if (
-      r.priority === 'required' &&
-      !/\b(must|required|require|essential|minimum|at least)\b/i.test(r.evidence)
-    )
+    if (r.priority === 'required' && !quote.required)
       throw new Error(
         'Required priority needs explicit wording in the source quote; use unknown otherwise',
       );
-    if (
-      r.priority === 'preferred' &&
-      !/\b(preferred|bonus|nice.to.have|desirable|ideally)\b/i.test(r.evidence)
-    )
+    if (r.priority === 'preferred' && !quote.preferred)
       throw new Error('Preferred priority needs explicit wording in the source quote');
   }
   return extraction;

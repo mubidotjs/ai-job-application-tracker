@@ -15,3 +15,9 @@ export const skillKey = (s: string) =>
     js: 'javascript',
     ts: 'typescript',
   })[normalized(s)] ?? normalized(s);
+export function containsTerm(text: string, term: string) {
+  const escaped = term.normalize('NFKC').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`(?<![\\p{L}\\p{N}])${escaped}(?![\\p{L}\\p{N}])`, 'iu').test(
+    text.normalize('NFKC'),
+  );
+}

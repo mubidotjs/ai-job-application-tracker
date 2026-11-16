@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { db, closeDb } from '../lib/db.ts';
 import * as store from '../lib/store.ts';
 import { fixtures, syntheticResume } from '../fixtures/jobs.ts';
-import { extractProfile, hash } from '../lib/domain.ts';
+import { extractProfile, hash, validateExtraction } from '../lib/domain.ts';
 let dir: string;
 beforeEach(() => {
   dir = mkdtempSync(join(tmpdir(), 'rolecraft-test-'));
@@ -33,6 +33,59 @@ const extraction = {
   inputHash: hash(fixtures[0].description),
 };
 describe('SQLite migrations, transactions and lifecycle', () => {
+  it('does not revalidate or rewrite previously accepted records or approved drafts when extraction checks tighten', () => {
+    const description = 'Required skill: SQL. React is not required.';
+    const j = store.addJob({ ...fixtures[0], description });
+    const legacy = {
+      ...extraction,
+      inputHash: hash(description),
+      requirements: [
+        {
+          term: 'SQL',
+          kind: 'skill' as const,
+          priority: 'required' as const,
+          evidence: 'Required skill: SQL.',
+          minYears: null,
+        },
+        // This unknown negated mention was accepted by the baseline validator.
+        {
+          term: 'React',
+          kind: 'skill' as const,
+          priority: 'unknown' as const,
+          evidence: 'React is not required.',
+          minYears: null,
+        },
+      ],
+    };
+    db().prepare('UPDATE jobs SET extraction=? WHERE id=?').run(JSON.stringify(legacy), j.id);
+    store.saveProfile({ ...extractProfile(syntheticResume), verified: true });
+    store.createDraft(j.id);
+    const draft = store.getDrafts(j.id)[0];
+    store.updateDraft(j.id, draft.id, draft.text, 'approved', true);
+    const before = {
+      jobs: db().prepare('SELECT * FROM jobs').all(),
+      drafts: db().prepare('SELECT * FROM drafts').all(),
+      events: db().prepare('SELECT * FROM events').all(),
+    };
+    closeDb();
+    store.listJobs();
+    store.getProfile();
+    const loaded = store.getDrafts(j.id)[0];
+    expect(loaded.status).toBe('approved');
+    expect(loaded.stale).toBe(false);
+    expect(loaded.text).toBe(draft.text);
+    expect(() => validateExtraction({ requirements: legacy.requirements }, description)).toThrow(
+      'Negated-only',
+    );
+    expect(() => store.saveExtraction(j.id, legacy, store.getJob(j.id).updatedAt)).toThrow(
+      'Negated-only',
+    );
+    expect({
+      jobs: db().prepare('SELECT * FROM jobs').all(),
+      drafts: db().prepare('SELECT * FROM drafts').all(),
+      events: db().prepare('SELECT * FROM events').all(),
+    }).toEqual(before);
+  });
   it('preserves original inference provenance across human corrections (synthetic unit record, not live proof)', () => {
     const j = store.addJob(fixtures[0]);
     store.saveExtraction(
