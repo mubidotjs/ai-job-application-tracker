@@ -1,0 +1,38 @@
+{
+  "capturedAt": "2026-11-16T08:38:54.933Z",
+  "syntheticOnly": true,
+  "actualBrowserScreenshots": true,
+  "liveInference": false,
+  "screenshots": [
+    {
+      "file": "docs/showcase-desktop.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "7fc209496b9a19af5b59dbe5ff039edf4ecee1082e2e0d7be1ab07e2bfaec7e5"
+    },
+    {
+      "file": "docs/showcase-tablet.png",
+      "width": 768,
+      "height": 1024,
+      "sha256": "e7d38aaa1d562d648d8c992f599fd8f67244d1f70fccc216d3238ec3aadafd9e"
+    },
+    {
+      "file": "docs/showcase-mobile.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "06fa5f14c45d07fa4422486635e90116e0d609e3e59f2337dd5c8c04c48f6f3c"
+    },
+    {
+      "file": "docs/showcase-fit.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "d3038b616059166807a0b20529978e5cab07061e2f2a2329db0a1e59ea99f934"
+    },
+    {
+      "file": "public/og.png",
+      "width": 1200,
+      "height": 630,
+      "sha256": "4b094f25c80735d88635fe50025f2d5f5d82c895d031793da9d141ecd32e0ac6"
+    }
+  ]
+}

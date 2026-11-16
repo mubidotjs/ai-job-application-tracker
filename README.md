@@ -2,6 +2,8 @@
 
 A local-first workspace for organizing opportunities, inspecting résumé alignment, and tracking applications. Independent portfolio project #4 by [mubidotjs](https://github.com/mubidotjs). No existing project, database or deployment is used.
 
+The [independently built interactive synthetic showcase](showcase/README.md) illustrates the product without the local server, SQLite or inference. The actual application below remains local-first.
+
 **Real local AI verification: PASS (November 15, 2026).** Ollama 0.40.16 with `qwen3:4b` (4.0B Q4_K_M) completed the committed synthetic fixture through actual local HTTP, strict Zod and exact source-evidence validation. See [metadata-only proof](docs/verification/real-ai-pass.json) and the [extraction evaluation protocol](docs/extraction-evaluation.md). Synthetic dashboard requirements still use human/demo rules and are labeled accordingly; neither those records nor mock tests establish live AI results.
 
 ![Local synthetic dashboard](docs/demo-dashboard.png)

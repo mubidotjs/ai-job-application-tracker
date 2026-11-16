@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Rolecraft · Engineering Case Study</title>
+    <meta
+      name="description"
+      content="Building a local-first AI job tracker with evidence-grounded extraction, transparent matching, explicit review and safe recovery. Includes a separate static synthetic showcase."
+    />
+    <link rel="canonical" href="https://rolecraft.mubashirhussain.dev/case-study.html" />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/styles.css" />
+    <meta name="theme-color" content="#286d59" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Rolecraft · Local-first AI, evidence and human decisions" />
+    <meta
+      property="og:description"
+      content="Engineering tradeoffs behind a working local AI application and its safely isolated static showcase."
+    />
+    <meta property="og:url" content="https://rolecraft.mubashirhussain.dev/case-study.html" />
+    <meta property="og:image" content="https://rolecraft.mubashirhussain.dev/assets/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <main class="article">
+      <a class="brand" href="/" aria-label="Rolecraft showcase home"
+        ><span class="brand-symbol" aria-hidden="true">▣</span>rolecraft<span class="brand-dot"
+          >.</span
+        ></a
+      >
+      <aside class="demo-notice" aria-label="Public demo notice">
+        Interactive synthetic demo. No live AI inference or personal data processing. Real Qwen3
+        inference is available in the local-first application.
+      </aside>
+      <p class="eyebrow">INDEPENDENT AI ENGINEERING PROJECT #4</p>
+      <h1>Decisions you can explain.<br />Evidence you can inspect.</h1>
+      <p>
+        Rolecraft helps a person organize opportunities, compare their actual experience with a
+        supplied role, and track what happens next. Its engineering priority is making model claims
+        inspectable while keeping private résumé information on the user's machine.
+      </p>
+      <div class="button-row">
+        <a class="button primary" href="/">Explore the interactive showcase</a
+        ><a class="button" href="https://github.com/mubidotjs/ai-job-application-tracker"
+          >GitHub source ↗</a
+        >
+      </div>
+      <h2>The product problem</h2>
+      <p>
+        A collection of saved vacancies becomes useful when requirements, candidate evidence and
+        application history are connected. A model-generated score alone is not enough: people need
+        to know which requirements are explicit, which skills are missing, where evidence is
+        uncertain, and what a human has reviewed.
+      </p>
+      <h2>The local implementation</h2>
+      <ol class="steps">
+        <li>
+          <span class="step-number">INTERFACE</span
+          ><strong>Next.js / React / TypeScript</strong>Import, evidence forms, transparent
+          comparisons, tracking and human-approved draft templates.
+        </li>
+        <li>
+          <span class="step-number">PERSISTENCE</span><strong>Local SQLite</strong>Prepared
+          statements, WAL, migration metadata, transactions and explicit recovery.
+        </li>
+        <li>
+          <span class="step-number">INFERENCE</span><strong>Ollama / Qwen3 4B</strong>Bounded
+          job-only inference through a dedicated server adapter. No paid or remote fallback.
+        </li>
+        <li>
+          <span class="step-number">VALIDATION</span
+          ><strong>Zod + exact source evidence</strong>Fail-closed contracts and semantic rejection,
+          with retained provenance and human review.
+        </li>
+      </ol>
+      <p>
+        Résumé evidence is extracted by deterministic local rules and reviewed by the user. Matching
+        is a reproducible calculation: required requirements weigh 3, preferred requirements weigh
+        1, and unknown priorities weigh 0. The UI shows earned points, missing skills and unresolved
+        constraints. A fit score is documented alignment, not a hiring probability.
+      </p>
+      <p>
+        Cover-note drafts are deterministic templates assembled from documented skill matches. They
+        are not AI-generated prose. The local application permits editing, requires explicit
+        approval, and supports manual copying; it never sends messages or submits applications.
+      </p>
+      <h2>What genuine verification established</h2>
+      <p>
+        The recorded local verifier passed actual Ollama/Qwen3 inference, HTTP response identity,
+        successful completion, a strict Zod contract and exact source quotes. A complete local
+        browser workflow also passed at its recorded baseline. The focused extraction correction
+        reached 8/8 original application acceptance using five affected reruns and three retained
+        controls. Its separately authored holdout reached 4/4 acceptance, 100% precision and 92.3%
+        recall.
+      </p>
+      <p>
+        One supported Flask preference was omitted from the holdout. Application acceptance is not
+        completeness, and a small synthetic suite is not a general benchmark. The local extraction
+        implementation remains frozen. Publishing this showcase did not run further model
+        evaluations.
+      </p>
+      <ul class="link-list">
+        <li>
+          <a
+            href="https://github.com/mubidotjs/ai-job-application-tracker/blob/aca0a75ee717e1032a9b55006c25a08d791f91d7/docs/verification/real-ai-pass.json"
+            >Genuine inference verification metadata ↗</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://github.com/mubidotjs/ai-job-application-tracker/blob/aca0a75ee717e1032a9b55006c25a08d791f91d7/docs/quality-correction.md"
+            >Quality metrics, retained controls and limitations ↗</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://github.com/mubidotjs/ai-job-application-tracker/blob/aca0a75ee717e1032a9b55006c25a08d791f91d7/docs/product-acceptance.md"
+            >Local product and recovery acceptance ↗</a
+          >
+        </li>
+      </ul>
+      <h2>Privacy and recovery are product features</h2>
+      <p>
+        The local workspace retains identifiers, source evidence, inference provenance, statuses and
+        approved text. Backup uses SQLite's online backup procedure; restore validates an isolated
+        file, requires an explicit preview and confirmation, and replaces records atomically.
+        Backups are sensitive plaintext, capped at 32 MiB. Recovery tests include corruption, stale
+        previews, concurrent activity and an abrupt process exit before commit.
+      </p>
+      <h2>A deliberately separate public surface</h2>
+      <p>
+        This site is an independently built static directory. It reuses the actual pure matching
+        calculation and invented fixtures, but contains no production API, database connection,
+        SQLite file, private résumé, model endpoint, upload or backup/restore service. Interactive
+        tracking, review and approval are temporary client-side illustrations that reset on reload.
+        No analytics, advertising or third-party runtime dependencies are included.
+      </p>
+      <div class="gallery">
+        <figure>
+          <img
+            src="/assets/local-dashboard.png"
+            width="1440"
+            height="1000"
+            alt="Actual local Rolecraft dashboard showing invented jobs and fictional tracking"
+            loading="lazy"
+          />
+          <figcaption>Genuine local product screenshot · synthetic data only.</figcaption>
+        </figure>
+        <figure>
+          <img
+            src="/assets/local-fit.png"
+            width="1440"
+            height="1000"
+            alt="Actual local Rolecraft explainable comparison showing matched and missing skills"
+            loading="lazy"
+          />
+          <figcaption>Genuine local product screenshot · fixed human/demo requirements.</figcaption>
+        </figure>
+      </div>
+      <h2>Run the complete local application</h2>
+      <p>
+        The actual application requires Node.js 24.15+ within 24.x. Local AI additionally requires
+        Ollama and the installed Qwen3 4B model. No paid API key is needed. CPU inference often
+        takes tens of seconds and may take up to five minutes.
+      </p>
+      <div class="button-row">
+        <a
+          class="button primary"
+          href="https://github.com/mubidotjs/ai-job-application-tracker/blob/aca0a75ee717e1032a9b55006c25a08d791f91d7/README.md#run-locally"
+          >Full installation guide ↗</a
+        ><a class="button" href="/">Back to the showcase</a
+        ><a class="button" href="https://mubashirhussain.dev/">Mubashir Hussain’s portfolio ↗</a>
+      </div>
+    </main>
+    <footer>
+      <span>Rolecraft · Independent portfolio project by Mubashir Hussain</span
+      ><a href="/">Interactive synthetic showcase</a>
+    </footer>
+  </body>
+</html>

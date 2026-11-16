@@ -1,0 +1,22 @@
+{
+  "name": "rolecraft-static-showcase",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.15 <25"
+  },
+  "scripts": {
+    "build": "node --experimental-strip-types build.mjs",
+    "check": "tsc --noEmit",
+    "test": "node --test tests/artifact.test.mjs",
+    "preview": "node serve.mjs",
+    "test:browser": "playwright test",
+    "verify:artifact": "node audit.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.65.1",
+    "typescript": "7.0.2"
+  }
+}
