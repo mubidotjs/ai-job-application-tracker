@@ -6,6 +6,7 @@ import { extractProfile, parseJobsCsv, hash } from '@/lib/domain';
 import { inferRequirements } from '@/lib/ollama';
 import { fixtures, syntheticResume } from '@/fixtures/jobs';
 import { jobInput, profileSchema, trackingSchema, extractionSchema } from '@/lib/contracts';
+import { assertWorkspaceAvailable, startExtraction } from '@/lib/workspace-state';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -58,6 +59,7 @@ function errorResponse(e: unknown) {
 export async function GET(req: Request) {
   try {
     guard(req);
+    assertWorkspaceAvailable();
     const url = new URL(req.url),
       id = url.searchParams.get('id');
     if (url.searchParams.has('export'))
@@ -107,6 +109,7 @@ export async function POST(req: Request) {
   try {
     guard(req, true);
     const c = commands.parse(await body(req));
+    assertWorkspaceAvailable();
     let result: unknown = { ok: true };
     switch (c.action) {
       case 'add':
@@ -138,6 +141,7 @@ export async function POST(req: Request) {
         break;
       case 'extract': {
         const job = store.getJob(c.id);
+        const finish = startExtraction();
         try {
           const extraction = await inferRequirements(job.description);
           store.saveExtraction(c.id, extraction, job.updatedAt);
@@ -146,6 +150,8 @@ export async function POST(req: Request) {
           if (!(e instanceof store.Conflict))
             store.extractionFailed(c.id, e instanceof Error ? e.message : 'Extraction failed');
           throw e;
+        } finally {
+          finish();
         }
         break;
       }

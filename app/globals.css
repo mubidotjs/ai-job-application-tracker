@@ -1991,6 +1991,7 @@ textarea {
   .sidebar nav {
     width: 100%;
     flex-basis: 100%;
+    flex-wrap: wrap;
     justify-content: space-between;
   }
   .nav-link {
@@ -2111,4 +2112,21 @@ textarea {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   line-height: 1.6;
+}
+.backup-preview {
+  margin: 20px 12px 20px 0;
+}
+.restore-preview {
+  margin-top: 20px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.restore-preview p {
+  line-height: 1.6;
+}
+.synthetic-banner {
+  background: var(--pale);
+  border: 1px solid var(--line);
+  color: var(--green-dark);
 }

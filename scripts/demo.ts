@@ -3,8 +3,22 @@ import * as store from '../lib/store.ts';
 import { closeDb } from '../lib/db.ts';
 import { extractProfile, hash } from '../lib/domain.ts';
 import type { JobInput, Requirement } from '../lib/contracts.ts';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 
 // An explicit, synthetic-only local demo. Never replace an existing workspace.
+const demoPath = process.env.DATABASE_PATH;
+if (
+  !demoPath ||
+  demoPath === ':memory:' ||
+  existsSync(demoPath) ||
+  resolve(demoPath) === resolve('data/tracker.sqlite')
+) {
+  console.error(
+    'Choose a new, explicitly configured demo DATABASE_PATH. Existing/default workspace files will not be opened.',
+  );
+  process.exit(1);
+}
 if (store.listJobs().length || store.getProfile()) {
   console.error(
     'Demo setup requires an empty database. Use DATABASE_PATH=./data/demo.sqlite for a separate demo. Existing records were left untouched.',
@@ -64,7 +78,8 @@ for (const j of jobs) {
       j.updatedAt,
     );
 }
-const at = '2026-11-15';
+const at = new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10);
+const followUp = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
 for (const [i, j] of jobs.entries()) {
   const status =
     i < 5 ? 'Applied' : i < 8 ? 'Interview' : i === 8 ? 'Offer' : i === 9 ? 'Rejected' : 'Saved';
@@ -72,11 +87,11 @@ for (const [i, j] of jobs.entries()) {
     store.saveTracking(j.id, {
       status,
       appliedDate: at,
-      followUpDate: i < 3 ? '2026-11-18' : '',
+      followUpDate: i < 3 ? followUp : '',
       notes: 'Synthetic demonstration status only. No application or message was sent.',
     });
 }
 console.log(
-  'Demo ready: 20 synthetic fixture jobs + 1 manual example, reviewed synthetic profile, human/demo requirements and example tracking. Real inference remains UNVERIFIED.',
+  'Demo ready: 20 synthetic fixture jobs + 1 manual example, fictional reviewed profile, human/demo requirements and varied tracking. These demo requirements are not live inference; separate genuine AI verification evidence is documented.',
 );
 closeDb();

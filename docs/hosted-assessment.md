@@ -1,5 +1,7 @@
 # Optional hosted inference assessment
 
+**Final product recommendation (November 16, 2026):** use only a separately isolated static, read-only synthetic showcase with bundled invented records and clearly labeled fixed outputs. Include no API, résumé input, backup/restore, SQLite file, credentials, local Ollama connection or remote inference. Link to the local repository for actual inference. Do not deploy the current local-only server directly to Vercel. No hosted resources have been created. The assessment below is retained historical context, not the selected approach.
+
 Assessed November 15, 2026. No resources created, provider enabled, credentials provisioned or private data transmitted.
 
 The local SQLite + Ollama architecture remains the default. Hosting the current local-only API publicly is unsuitable: it has no multi-user authentication, relies on device-local disk, and deliberately rejects non-loopback hosts.

@@ -1,0 +1,39 @@
+{
+  "capturedAt": "2026-11-16T07:29:00.603Z",
+  "source": "Actual Chromium screenshots of the running production application",
+  "data": "20 unchanged invented fixture jobs plus one invented manual example, fictional verified résumé, human/demo requirement rules",
+  "liveInferenceDuringCapture": false,
+  "jobCount": 21,
+  "screenshots": [
+    {
+      "file": "demo-dashboard.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "51b7f8696dfd092ddb28fcf719974589a666b113459e7046dae95185be7bebe8"
+    },
+    {
+      "file": "demo-fit.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "1188fa2d8baee0564b7862cafe9014c99479bd3e01a16d6d9e1cd61bd8e1408c"
+    },
+    {
+      "file": "demo-requirements.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "4a6b3d42585f75c49c25f6c79bb59ee1d712e5acb9b4b6a4a03e32a49899e8d4"
+    },
+    {
+      "file": "demo-backup.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "bf7542d73dd1ff6d1ed24dae552d1a4a0b2329bd98f2df3f76bfe8c0d2c64425"
+    },
+    {
+      "file": "demo-mobile.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "0c2870fa8d680ca4674d8eae784bd55fb6937e6f83cc27d5fff94d77923af69f"
+    }
+  ]
+}

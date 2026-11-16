@@ -9,3 +9,12 @@ test-results/
 artifacts/
 .local-tools/
 .local-models/
+# Plaintext workspaces and downloaded backups must never be committed.
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite-journal
+*.db
+*.db-wal
+*.db-shm
+*.db-journal

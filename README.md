@@ -8,9 +8,15 @@ A local-first workspace for organizing opportunities, inspecting résumé alignm
 
 Synthetic local demo. Scores shown use human/demo requirements, not verified live inference.
 
+![Explainable fit with matched and missing skills](docs/demo-fit.png)
+
+<img src="docs/demo-mobile.png" width="300" alt="Actual mobile Rolecraft dashboard with invented demonstration opportunities" />
+
+[Requirement evidence](docs/demo-requirements.png) · [Backup and restore](docs/demo-backup.png) · [Reproducible portfolio walkthrough](docs/portfolio-walkthrough.md)
+
 ## Run locally
 
-Requires **Node.js 24.x** and npm. No API key or cloud account.
+Requires **Node.js 24.15+ within 24.x** and npm. No API key or cloud account.
 
 ```sh
 git clone https://github.com/mubidotjs/ai-job-application-tracker.git
@@ -22,14 +28,14 @@ npm run dev
 
 Open [http://127.0.0.1:3000](http://127.0.0.1:3000). SQLite is created automatically at `data/tracker.sqlite`; versioned SQL migrations run on first access. Restarting the server preserves records. `npm run db:seed` imports only the 20 synthetic fixture jobs and safely skips exact duplicates. You can instead start empty and use **Load 20 synthetic jobs** or import `public/synthetic-jobs.csv`.
 
-For a populated, explicitly synthetic demo, **on an empty database**, run:
+For a populated, explicitly synthetic demonstration with a new isolated workspace:
 
 ```sh
-npm run demo:seed
-npm run dev
+npm run build
+npm run demo
 ```
 
-This adds 20 fixture jobs, one manual example, a verified fictional résumé, human/demo requirements, and fictional tracking states. It never approves drafts or claims live inference. It refuses to modify a nonempty workspace. All fixture companies and vacancies are invented, with `example.com` URLs. The synthetic résumé contains no real person's data.
+Use the loopback URL printed in the terminal. Each invocation creates a new ignored synthetic database, preserving all 20 fixture jobs plus one manual example, a verified fictional résumé, human/demo requirements and varied tracking states. It never opens the default or an existing private workspace, approves drafts or claims live inference. All people, companies and vacancies are invented. To reproduce the actual desktop/mobile screenshots after installing Playwright Chromium, run `npm run demo:capture`. [Walkthrough and capture details](docs/portfolio-walkthrough.md).
 
 Production local build:
 
@@ -61,10 +67,9 @@ Server-only defaults work without an environment file. Optional `.env.local`:
 
 ```dotenv
 DATABASE_PATH=./data/tracker.sqlite
-OLLAMA_BASE_URL=http://127.0.0.1:11434
 ```
 
-CLI scripts read environment variables from the shell, not `.env.local`. `npm run ollama:serve` is an optional loopback-only launcher with cloud inference disabled; it never downloads models. On the verification machine it uses the authorized installation under ignored `.local-tools/ollama` and stores models in ignored `.local-models` on D:. On other machines it uses Ollama from PATH. No system-wide model-directory setting is changed. Example separate PowerShell demo database:
+Keep Ollama's default local-only connection; model settings remain server-side. CLI scripts read environment variables from the shell, not `.env.local`. `npm run ollama:serve` is an optional loopback-only launcher with cloud inference disabled; it never downloads models. Advanced demo seeding requires a **new, explicit** database path and refuses an existing/default workspace. For example, choose a previously unused path:
 
 ```powershell
 $env:DATABASE_PATH = './data/demo.sqlite'
@@ -86,6 +91,7 @@ Only HTTP loopback (`127.0.0.1`, `localhost`, `[::1]`) endpoints are allowed. Re
 - Manual application statuses: Saved → Applied → Interview → Offer / Rejected; users can correct any state. Dates, private notes, due/overdue follow-ups and activity history. Moving beyond Saved requires an application date. Reminders appear in the workspace; no background notifications or email.
 - Short evidence-assembled cover-note templates, limited to skills matched against verified résumé quotes. These are deterministic drafts, not model-generated prose. Editing, rejection, explicit approval, approved preview, manual copy and source-change warnings. Human edits are the user's responsibility; review every claim. No sending or job submission exists.
 - CSV export of all opportunities and application fields with quoting and spreadsheet-formula neutralization.
+- Local SQLite-safe workspace backup, integrity/schema preview, explicit replacement confirmation and atomic restore. Includes profile, approvals, history, reviewed/original AI provenance and tracking; stale previews and corrupt files cannot silently replace records. Backups are sensitive **unencrypted plaintext**, capped at 32 MiB. [Backup procedure, validation and recovery](docs/workspace-backups.md).
 - Profile erasure also removes all drafts. Deleting a job cascades to notes, drafts and history.
 
 ## Architecture
@@ -93,6 +99,8 @@ Only HTTP loopback (`127.0.0.1`, `localhost`, `[::1]`) endpoints are allowed. Re
 `app/tracker.tsx` (React UI) → same-origin `app/api/tracker/route.ts` (Node runtime, strict commands, bounded bodies) → `lib/store.ts` → Node 24 `node:sqlite` (`DatabaseSync`, prepared statements, WAL, foreign keys, transactions) → local disk. Schema: jobs, profiles, drafts, events, duplicate_reviews and migration ledger. Initial migration: `migrations/001_initial.sql`.
 
 The inference branch calls only `lib/ollama.ts` → local `/api/chat` → `qwen3:4b`. The server adds the model name and provenance; user CSV or manual contracts cannot claim Ollama provenance. Model prompts treat descriptions as untrusted data. Zod rejects extra properties, unquoted terms, fabricated numeric years, duplicates and unsupported mandatory/preferred labels. This is evidence checking, not a complete semantic proof: humans still review relevance, negation and whether each requirement is appropriate.
+
+The backup branch uses a separate same-origin local `/api/workspace` route → bounded child process → Node SQLite online backup. Restore validates an isolated file, binds preview authorization to exact backup bytes and current workspace state, then replaces records through prepared statements in one `BEGIN IMMEDIATE` transaction. It preserves stored values and approvals without re-running semantic extraction checks. No browser filename becomes a server path. Run one server process per workspace.
 
 The browser imports only shared contracts, pure normalization and deterministic matching. Database access and endpoint configuration stay on the server. Matching is pure and covered by fixed expected-point tests. The API rejects non-loopback Host headers and cross-origin mutation requests. React escapes supplied text; no HTML rendering or source URL fetching. No trackers, external fonts, payload logging or Next.js telemetry. Browser requests stay same-origin. The local AI request contains job text only; résumé data stays in SQLite and this browser.
 
@@ -110,6 +118,8 @@ npm run test:e2e
 
 Vitest covers contracts, unsupported claims, matching arithmetic, CSV injection, duplicates, local endpoint policy, malformed/oversized/timed-out mock responses, persistence across connection restart, transaction rollback, stale writes and draft approval. Playwright exercises the actual UI → API → SQLite flow, CSV and manual creation, profile review, human requirements, fitting, tracking, drafts, duplicate review, delete confirmation, exports, mobile overflow and visible model-boundary failure. `data/e2e.sqlite` is test-only and reset before browser tests. CI uses Node 24 on Ubuntu and never requires Ollama or paid keys. Live inference is a separate owner-run check.
 
+Final hardening adds backup concurrency, corruption/schema/foreign-key rejection, transaction and abrupt-exit recovery, exact approval/provenance preservation, preview expiry, confirmation and cancellation. Chromium also checks keyboard detail tabs, local backup round-trip, actual clipboard copying, and duplicate-inference/timeout UI behavior using an explicitly mocked boundary. **No new model evaluations run during final acceptance.**
+
 Opt-in actual local inference and evaluation, separate from CI:
 
 ```sh
@@ -123,8 +133,8 @@ Evaluation runs only after a genuine verifier PASS. `-- --fixtures=<comma-separa
 
 The completed focused correction used `npm run evaluate:quality` with a fixed 13-call budget and a separate holdout comparison. Its [committed report](docs/quality-correction/results.json) records the exact source bundle and model digest. That batch is finished; the older opt-in acceptance command retains its fresh full-evaluation guard and was not rerun after the form changes. Current browser/CI checks exercise the new forms without live inference; the earlier genuine end-to-end acceptance remains historical evidence at its recorded baseline.
 
-## Scope and remaining work
+## Local implementation complete
 
 Actual Qwen3 4B inference and the [complete local browser acceptance workflow](docs/verification/live-acceptance.json) have passed. The [focused quality correction](docs/quality-correction.md) reached 8/8 original application acceptance with five affected reruns and three explicitly retained controls. Precision, recall and priority accuracy were 100% on that reviewed set. A separately authored holdout improved from 0/4 to 4/4 acceptance, with 100% precision and 92.3% recall; one supported preference was omitted. The one bounded batch is complete and AI extraction is frozen. All [earlier results](docs/extraction-evaluation.md) remain intact. This small synthetic evaluation does not remove the need for evidence checks and human review. No public demonstration or hosted inference is enabled. Private records are plaintext local data; multi-user hosting would require authentication, encryption/access controls and a different deployment design.
 
-No deployment or cloud resource is created. A hosted alternative must be a separate **explicit opt-in** and must never transmit résumé text by default. A public synthetic showcase would be labeled as such and must not claim verified live AI. The [hosted feasibility assessment](docs/hosted-assessment.md) reviews Cloudflare Workers AI's free allowance and consent requirements; it is not an enabled provider here.
+The local product, safe backup/restore and [portfolio demonstration](docs/portfolio-walkthrough.md) are complete. The remaining extraction omission and plaintext/local-only limitations are disclosed rather than hidden. No deployment or cloud resource was created. For public presentation, use a **separate static read-only synthetic showcase** with bundled invented records and fixed examples, no API, private SQLite file, résumé input, backup/restore, local Ollama connection or remote inference. Do not deploy this local-only server directly to Vercel. The [earlier hosted assessment](docs/hosted-assessment.md) is historical context, not an enabled provider or the current demonstration recommendation.

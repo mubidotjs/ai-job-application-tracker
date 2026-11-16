@@ -24,6 +24,7 @@ import {
   Sparkles,
   Upload,
   X,
+  DatabaseBackup,
 } from 'lucide-react';
 import {
   statuses,
@@ -36,8 +37,9 @@ import {
 } from '@/lib/contracts';
 import { matchProfile } from '@/lib/matching';
 import { ProfileEditor, RequirementsEditor } from './review-editors';
+import { WorkspaceTools } from './workspace-tools';
 
-type View = 'overview' | 'jobs' | 'profile' | 'followups';
+type View = 'overview' | 'jobs' | 'profile' | 'followups' | 'workspace';
 type Activity = { kind: string; detail: string; createdAt: string };
 const blank: JobInput = {
   company: '',
@@ -49,6 +51,7 @@ const blank: JobInput = {
   description: '',
   synthetic: false,
 };
+const detailTabs = ['Requirements', 'Fit comparison', 'Drafts', 'Description'] as const;
 const fmt = (s: string) =>
   new Date(s).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
 const today = () => {
@@ -194,6 +197,7 @@ export default function Tracker() {
   const [draftText, setDraftText] = useState(''),
     [approve, setApprove] = useState(false);
   const requestVersion = useRef(0);
+  const operationRunning = useRef(false);
   async function refresh() {
     const data = await api<{ jobs: Job[]; profile: Profile | null; syntheticResume: string }>();
     setJobs(data.jobs);
@@ -202,6 +206,10 @@ export default function Tracker() {
     return data;
   }
   useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('restored') === '1') {
+      setNotice('Workspace restored from your confirmed backup.');
+      window.history.replaceState(null, '', '/');
+    }
     refresh()
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false));
@@ -245,6 +253,8 @@ export default function Tracker() {
     loadDetail(selected).catch((e) => setError(e.message));
   }, [selected, jobs]);
   async function run(label: string, fn: () => Promise<void>) {
+    if (operationRunning.current) return;
+    operationRunning.current = true;
     setBusy(label);
     setError('');
     setNotice('');
@@ -253,6 +263,7 @@ export default function Tracker() {
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Operation failed');
     } finally {
+      operationRunning.current = false;
       setBusy('');
     }
   }
@@ -333,6 +344,7 @@ export default function Tracker() {
               ['jobs', BriefcaseBusiness, 'Opportunities'],
               ['profile', FileText, 'My profile'],
               ['followups', Clipboard, 'Follow-ups'],
+              ['workspace', DatabaseBackup, 'Backup & restore'],
             ] as const
           ).map(([id, Icon, label]) => (
             <button
@@ -385,7 +397,9 @@ export default function Tracker() {
                     ? 'Opportunities'
                     : view === 'followups'
                       ? 'Follow-ups'
-                      : 'Overview'}
+                      : view === 'workspace'
+                        ? 'Backup & restore'
+                        : 'Overview'}
             </span>
           </div>
           <span className="private-label">
@@ -422,6 +436,16 @@ export default function Tracker() {
               </button>
             </div>
           )}
+          {!loading &&
+            !active &&
+            view === 'overview' &&
+            jobs.length > 0 &&
+            jobs.every((job) => job.synthetic) && (
+              <div className="banner synthetic-banner" role="note">
+                Synthetic opportunities · all roles are invented. Extraction provenance is shown on
+                each record.
+              </div>
+            )}
           {loading ? (
             <div className="loading-state">
               <LoaderCircle className="spin" />
@@ -500,19 +524,47 @@ export default function Tracker() {
               <div className="detail-grid">
                 <section className="panel detail-main">
                   <div className="tabs" role="tablist" aria-label="Opportunity sections">
-                    {['Requirements', 'Fit comparison', 'Drafts', 'Description'].map((t) => (
+                    {detailTabs.map((t) => (
                       <button
                         role="tab"
+                        id={`tab-${t.replace(' ', '-')}`}
+                        aria-controls={`panel-${t.replace(' ', '-')}`}
                         aria-selected={detailTab === t}
+                        tabIndex={detailTab === t ? 0 : -1}
                         key={t}
                         onClick={() => setDetailTab(t)}
+                        onKeyDown={(event) => {
+                          const index = detailTabs.indexOf(t);
+                          const next =
+                            event.key === 'ArrowRight'
+                              ? (index + 1) % detailTabs.length
+                              : event.key === 'ArrowLeft'
+                                ? (index + detailTabs.length - 1) % detailTabs.length
+                                : event.key === 'Home'
+                                  ? 0
+                                  : event.key === 'End'
+                                    ? detailTabs.length - 1
+                                    : null;
+                          if (next !== null) {
+                            event.preventDefault();
+                            setDetailTab(detailTabs[next]);
+                            document
+                              .getElementById(`tab-${detailTabs[next].replace(' ', '-')}`)
+                              ?.focus();
+                          }
+                        }}
                       >
                         {t}
                       </button>
                     ))}
                   </div>
                   {detailTab === 'Requirements' && (
-                    <div className="panel-content">
+                    <div
+                      className="panel-content"
+                      role="tabpanel"
+                      id="panel-Requirements"
+                      aria-labelledby="tab-Requirements"
+                    >
                       <div className="section-heading">
                         <div>
                           <h2>Understand the role</h2>
@@ -524,6 +576,8 @@ export default function Tracker() {
                         <LockKeyhole size={16} />
                         <span>
                           Job text stays on your device. Extraction uses local Ollama · Qwen3 4B.
+                          Local CPU inference often takes tens of seconds and may take up to five
+                          minutes.
                         </span>
                       </div>
                       <div className="action-row">
@@ -662,7 +716,12 @@ export default function Tracker() {
                     </div>
                   )}
                   {detailTab === 'Fit comparison' && (
-                    <div className="panel-content">
+                    <div
+                      className="panel-content"
+                      role="tabpanel"
+                      id="panel-Fit-comparison"
+                      aria-labelledby="tab-Fit-comparison"
+                    >
                       <div className="section-heading">
                         <div>
                           <h2>A score you can inspect</h2>
@@ -733,7 +792,12 @@ export default function Tracker() {
                     </div>
                   )}
                   {detailTab === 'Drafts' && (
-                    <div className="panel-content">
+                    <div
+                      className="panel-content"
+                      role="tabpanel"
+                      id="panel-Drafts"
+                      aria-labelledby="tab-Drafts"
+                    >
                       <div className="section-heading">
                         <div>
                           <h2>A thoughtful first introduction</h2>
@@ -914,7 +978,12 @@ export default function Tracker() {
                     </div>
                   )}
                   {detailTab === 'Description' && (
-                    <div className="panel-content">
+                    <div
+                      className="panel-content"
+                      role="tabpanel"
+                      id="panel-Description"
+                      aria-labelledby="tab-Description"
+                    >
                       <h2>Original job description</h2>
                       <p className="preserve-text description-text">{active.description}</p>
                       {active.sourceUrl && (
@@ -1023,6 +1092,8 @@ export default function Tracker() {
                 </aside>
               </div>
             </>
+          ) : view === 'workspace' ? (
+            <WorkspaceTools disabled={!!busy} />
           ) : view === 'profile' ? (
             <>
               <div className="page-heading">
@@ -1290,7 +1361,7 @@ export default function Tracker() {
                         <LockKeyhole size={13} />
                         {liveCount
                           ? `${liveCount} real local extraction${liveCount === 1 ? '' : 's'} saved`
-                          : 'Live inference not yet verified'}
+                          : 'No live inference in this workspace'}
                       </div>
                     </section>
                   </div>
